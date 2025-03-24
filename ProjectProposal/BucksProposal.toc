@@ -1,0 +1,5 @@
+\contentsline {section}{\numberline {1}Proposal Requirements}{3}{section.1}%
+\contentsline {section}{\numberline {2}Milwaukee Bucks Dataset}{3}{section.2}%
+\contentsline {section}{\numberline {3}Objectives for Analysis}{3}{section.3}%
+\contentsline {section}{\numberline {4}Team Members}{3}{section.4}%
+\contentsline {section}{\numberline {5}The First Five Records}{4}{section.5}%
