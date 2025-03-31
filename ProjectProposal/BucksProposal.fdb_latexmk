@@ -1,12 +1,12 @@
 # Fdb version 4
-["pdflatex"] 1742787718.25406 "c:/GitHub/BucksHackathon25/ProjectProposal/BucksProposal.tex" "BucksProposal.pdf" "BucksProposal" 1742787719.6183 0
-  "BucksProposal.aux" 1742787719 1177 482c5a559f51f5b809c3018fda3b7ae3 "pdflatex"
-  "BucksProposal.out" 1742787719 747 5d06b3193c545d4ab3c8bdf71399d514 "pdflatex"
-  "BucksProposal.tex" 1742787717 4392 91eeb9601314c9ec72eb18e3398f1dbf ""
-  "C:/GitHub/BucksHackathon25/SalvinDirectory/images/image_one.png" 1742786360 31333 7f4657e0f579b9088f7f8eb57627eb83 ""
-  "C:/GitHub/BucksHackathon25/SalvinDirectory/images/image_three.png" 1742786999 50545 6a0a67b2d12d9e72f57ba4c135dc1d1d ""
-  "C:/GitHub/BucksHackathon25/SalvinDirectory/images/image_two.png" 1742786562 21583 ff528a73d8b15cde57d096fa655b0708 ""
-  "C:/Users/chowdhuryj/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1741138844 82507 a9eef8696c92627b87e9975edea03b2a ""
+["pdflatex"] 1743381997.56238 "c:/GitHub/BucksHackathon25/ProjectProposal/BucksProposal.tex" "BucksProposal.pdf" "BucksProposal" 1743381999.00064 0
+  "BucksProposal.aux" 1743381998 1177 482c5a559f51f5b809c3018fda3b7ae3 "pdflatex"
+  "BucksProposal.out" 1743381998 747 5d06b3193c545d4ab3c8bdf71399d514 "pdflatex"
+  "BucksProposal.tex" 1743381995 4392 883573e5fffcacecfb899e50f1d23ef4 ""
+  "C:/GitHub/BucksHackathon25/ProjectProposal/images/image_one.png" 1742786360 31333 7f4657e0f579b9088f7f8eb57627eb83 ""
+  "C:/GitHub/BucksHackathon25/ProjectProposal/images/image_three.png" 1742786999 50545 6a0a67b2d12d9e72f57ba4c135dc1d1d ""
+  "C:/GitHub/BucksHackathon25/ProjectProposal/images/image_two.png" 1742786562 21583 ff528a73d8b15cde57d096fa655b0708 ""
+  "C:/Users/chowdhuryj/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1743133990 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/chowdhuryj/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1739155089 11548 f49887ef89b7ed0788c6124f7adb9cf1 ""
   "C:/Users/chowdhuryj/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1737942959 12015813 cd1a156d53829aef9f4414cbc622121f ""
   "C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/fonts/tfm/jknappen/ec/tcrm1000.tfm" 993062508 1436 c7f957a372ef2fbe93c0982f96625e12 ""
@@ -82,7 +82,7 @@
   "C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.sty" 1576433952 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1657800696 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
   "C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/GitHub/BucksHackathon25/ProjectProposal/BucksProposal.tex" 1742787717 4392 91eeb9601314c9ec72eb18e3398f1dbf ""
+  "c:/GitHub/BucksHackathon25/ProjectProposal/BucksProposal.tex" 1743381995 4392 883573e5fffcacecfb899e50f1d23ef4 ""
   (generated)
   "BucksProposal.aux"
   "BucksProposal.log"
