@@ -3,22 +3,74 @@
 \usepackage[margin=0.5in]{geometry}
 \usepackage{amsmath, booktabs, float, hyperref, graphicx}
 
-\title{MMilwaukee Bucks Business Objectives}
+\title{Milwaukee Bucks Business Objectives}
 \author{Salvin Chowdhury \& Mathias Galvan}
 \date{\today}
 
 \begin{document}
 
-\maketitle
+\maketitle 
 
 \newpage
 
-
 \section{Introduction}
 In this paper, we understand the customer's business goals and define success from a business perspective. We assess 
-the reosurces, project requirements, risks and perform a cost-benefit analysis. We then define technical success 
-criteria for the data mining work. Lastly, we create a project plan 
+the resources, project requirements, risks and perform a cost-benefit analysis. We then define the technical success 
+criteria for the data mining work. Lastly, we create a project plan by selecting the right tools and outline the steps.
 
+\section{The Business Objective}
+First, we need to understand what we need to understand what the customer (Milwaukee Bucks) wants to achieve with the 
+project. This means figuring out their goals or what success looks like for them from a business point of view.
+
+\subsection{The Milwaukee Bucks Business Objectives}
+The Milwaukee Bucks are considering the introduction of four themed partial ticket plans for the upcoming season:
+\begin{itemize}
+    \item \textbf{Value Plan:} focuses on affordable tickets for weekday games
+    \item \textbf{Marquee Opponent Plan:} featuring games against high profile opponents
+    \item \textbf{Weekend Plan:} hihglighitng weekend games for fans looking for weekend entertainment
+    \item \textbf{Promotional Giveaway Inclusive Plan:} centered around games with promotional giveaways
+\end{itemize}
+
+\noindent \textbf{Data Science Goal:} to leverage historical ticketing data to predict the likelihood that an account 
+will purchase one of the new partial plans and which plan they're most likely to purchase. \\
+
+\noindent \textbf{Business Goal:} to increase sales of new partial ticket plans by targeting fans fan personalized 
+marketing, based on insights from historical ticketing behavior.
+
+\subsection{Understanding the Data}
+To leverage ticketing data means to look at all three data sets and figure out what kind of insights we can derive 
+from it. Here are some of the things that we know about the datasets:
+\begin{itemize}
+    \item There are three kinds of tickets being purchased, single game, partial plan and group tickets
+    \item Each user account has a average amount of spending that is made based off the sales of the tickets
+    \item There are fans who have a level of interest, have attended games, and live a distance away from the stadium
+    \item There are games which contains just data of which games have given out a giveaway
+    \item There are games which contains the season at which it was played, as well as the date and the tier
+\end{itemize}
+
+\subsection{Cost-Benefit Analysis}
+When it comes to availability to ticketing data, we have all the data on the seats, games and the accounts. We can use
+data science and machine learning tools to derive insights and deliver conclusions. The timeline for this project is
+approximately one month from April to May. \\
+
+\noindent Some associated risks of this may be that the predictions are not accurate or actionable. Another risk is 
+that there might not be enough data or there are fields that are missing. Although the cost of this project is that 
+time put in for data analysis, the benefit is that this will lead to a more targeted advertising campaign.
+
+\subsection{Data Mining Goals}
+When it comes to data mining goals, we would like to predict likelihood of purchase and predict which plan each 
+account is likely to purchase. We identify the key customer features in terms of predictiveness, and export these 
+predictions into a format that marketing / sales teams can use.
+
+\subsubsection{Data Mining Techniques}
+For now, these are some of the suggested data mining techniques that can be used for data analysis:
+\begin{itemize}
+    \item Determining methods of imputation for the missing values in all of the datasets
+    \item Determining the target variable in different datasets and creating visualizations to determine relationships
+    \item Using statistical testing tehcniques to determine the relationships between diffent data types
+    \item Using hypothesis testing methods to determine the relationships between different features in the dataset
+    \item Exploring merging datasets or dividing datasets to derive newer insights of relationships between features
+\end{itemize}
 
 
 \end{document}

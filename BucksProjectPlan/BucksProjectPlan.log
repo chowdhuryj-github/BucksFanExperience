@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.1.26)  6 APR 2025 19:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.1.26)  7 APR 2025 21:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -344,6 +344,16 @@ Package hyperref Info: Link coloring OFF on input line 10.
 [1
 
 {C:/Users/chowdhuryj/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+Underfull \hbox (badness 10000) in paragraph at lines 34--36
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--55
+
+ []
+
+
 
 [2] (BucksProjectPlan.aux)
  ***********
@@ -351,20 +361,20 @@ LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-12-25>
  ***********
 Package rerunfilecheck Info: File `BucksProjectPlan.out' has not changed.
-(rerunfilecheck)             Checksum: 9814C2D956916ADB9290ECA4E25C967A;103.
+(rerunfilecheck)             Checksum: 18C7D58CDB89F9952C6AAFBF0ABA44E2;1195.
  ) 
 Here is how much of TeX's memory you used:
- 9751 strings out of 473536
- 152390 string characters out of 5712536
- 553386 words of memory out of 5000000
- 32865 multiletter control sequences out of 15000+600000
- 563151 words of font info for 51 fonts, out of 8000000 for 9000
+ 9771 strings out of 473536
+ 152700 string characters out of 5712536
+ 564402 words of memory out of 5000000
+ 32877 multiletter control sequences out of 15000+600000
+ 564101 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,6n,79p,286b,441s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on BucksProjectPlan.pdf (2 pages, 55839 bytes).
+ 75i,6n,79p,364b,439s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\chowdhuryj\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk><C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on BucksProjectPlan.pdf (2 pages, 88456 bytes).
 PDF statistics:
- 40 PDF objects out of 1000 (max. 8388607)
- 4 named destinations out of 1000 (max. 500000)
- 9 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 76 PDF objects out of 1000 (max. 8388607)
+ 10 named destinations out of 1000 (max. 500000)
+ 57 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}%
+\contentsline {section}{\numberline {2}The Business Objective}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}The Milwaukee Bucks Business Objectives}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Understanding the Data}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Cost-Benefit Analysis}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Data Mining Goals}{3}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Data Mining Techniques}{3}{subsubsection.2.4.1}%
+\contentsline {section}{\numberline {3}The Project Plan}{4}{section.3}%
