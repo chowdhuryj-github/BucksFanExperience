@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1744080586.34132 "c:/GitHub/BucksHackathon25/BucksProjectPlan/BucksProjectPlan.tex" "BucksProjectPlan.pdf" "BucksProjectPlan" 1744080587.86594 0
-  "BucksProjectPlan.aux" 1744080587 1056 00668e09b3b93287cbcc90a596ec87ed "pdflatex"
-  "BucksProjectPlan.out" 1744080587 1195 18c7d58cdb89f9952c6aafbf0aba44e2 "pdflatex"
-  "BucksProjectPlan.tex" 1744080585 4486 611591116b06bdf36ccfefb63e52f22b ""
+["pdflatex"] 1744080880.59983 "c:/GitHub/BucksHackathon25/BucksProjectPlan/BucksProjectPlan.tex" "BucksProjectPlan.pdf" "BucksProjectPlan" 1744080881.72406 0
+  "BucksProjectPlan.aux" 1744080881 1056 00668e09b3b93287cbcc90a596ec87ed "pdflatex"
+  "BucksProjectPlan.out" 1744080881 1195 18c7d58cdb89f9952c6aafbf0aba44e2 "pdflatex"
+  "BucksProjectPlan.tex" 1744080879 4487 81d80e457d10cb4d7f2d13366fc210e4 ""
   "C:/Users/chowdhuryj/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1743133990 82507 a9eef8696c92627b87e9975edea03b2a ""
   "C:/Users/chowdhuryj/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/tcrm1000.pk" 1739155089 11548 f49887ef89b7ed0788c6124f7adb9cf1 ""
   "C:/Users/chowdhuryj/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1737942959 12015813 cd1a156d53829aef9f4414cbc622121f ""
@@ -77,7 +77,7 @@
   "C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/tex/latex/refcount/refcount.sty" 1576433952 9878 9e94e8fa600d95f9c7731bb21dfb67a4 ""
   "C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1657800696 9714 ba3194bd52c8499b3f1e3eb91d409670 ""
   "C:/Users/chowdhuryj/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/GitHub/BucksHackathon25/BucksProjectPlan/BucksProjectPlan.tex" 1744080585 4486 611591116b06bdf36ccfefb63e52f22b ""
+  "c:/GitHub/BucksHackathon25/BucksProjectPlan/BucksProjectPlan.tex" 1744080879 4487 81d80e457d10cb4d7f2d13366fc210e4 ""
   (generated)
   "BucksProjectPlan.aux"
   "BucksProjectPlan.log"
