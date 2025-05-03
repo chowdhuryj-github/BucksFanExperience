@@ -1,0 +1,309 @@
+---
+title: "Kruskal Wallis Tests for Account Dataset 2023 & 2024"
+date: 'Date: May 3, 2025'
+output: html_notebook
+---
+
+# Reading in the Dataset
+We start off by reading the `.csv` file into a dataframe. This will allow us to perform the necessary operations needed to extract the data that we're
+concerned about, as well as perform the statistical tests, which can give us more insights into the data. 
+
+**Note:** it is worth noting that we apply the bonferroni correction to all of our testing as well as set the signifigance level to 0.05.
+
+```{r setup, message=FALSE, warning=FALSE}
+
+library(dplyr)
+library(ggplot2)
+library(rlang)
+library(gridExtra)
+
+# reading in the account data into data frames
+account_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksBusinessObjectives/BucksDatasets/AccountLevel_2023.csv")
+account_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksBusinessObjectives/BucksDatasets/AccountLevel_2024.csv")
+
+
+```
+
+## Kruskal Wallis Test on AvgSpend and FanSegment
+Now that we've read the data into a data frame, we would like to perform a kruskal wallis test on the AvgSpend vs the FanSegment from both datasets. This
+will allow us compare a numerical variable against a categorical variable with multiple values. 
+
+- **Null Hyypothesis:** the distribution of average spending is the same across all segments
+- **Alternative Hypothesis:** atleast one fan segment has a different distribution of average spending compared to others
+
+```{r}
+
+# performing a kruskal-wallis test
+kruskal_one <- kruskal.test(AvgSpend ~ FanSegment, data=account_2023)
+print(kruskal_one)
+
+
+```
+
+Since we got our p-value as 2.2 x 10^-6, this means we reject the null hypothesis, as there is strong evidence to suggest that atleast one fan segment 
+has a different distribution of average spending compared to others. To figure out which fan segments, we move to performing a post-hoc pairwise test.
+
+```{r}
+
+# setting the data type as factor
+account_2023$FanSegment <- as.factor(account_2023$FanSegment)
+
+
+# performing the pair wise testing
+rank_sum_one <- pairwise.wilcox.test(
+    x = account_2023$AvgSpend, 
+    g = account_2023$FanSegment, 
+    p.adjust.method = "bonferroni")
+
+# printg out the results
+print(rank_sum_one)
+
+
+```
+
+As we can see, we now know that the FanSegment groups that show a statistically significant difference is as follows:
+
+- F vs A, B, C and D
+- G vs A, B, C, D and E
+
+Now we perform the same kruskal-wallis testing on all features in 2024 dataset.
+
+```{r}
+
+# performing a kruskal-wallis test
+kruskal_two <- kruskal.test(AvgSpend ~ FanSegment, data=account_2024)
+print(kruskal_two)
+
+# setting the data type as factor
+account_2024$FanSegment <- as.factor(account_2024$FanSegment)
+
+# performing the pair wise testing
+rank_sum_two <- pairwise.wilcox.test(
+    x = account_2024$AvgSpend, 
+    g = account_2024$FanSegment, 
+    p.adjust.method = "bonferroni")
+
+# printg out the results
+print(rank_sum_two)
+
+
+```
+
+As we can see, we now know that the FanSegment groups that show a statistically significant difference is as follows:
+
+- E vs A, C and D 
+- F vs A and D 
+- G vs A, B, C, D, E and F
+
+
+## Creating a Function for Performing Kruskal-Wallis Tests
+Understanding the Kurskal-Wallis process, we decide to make a function that will make the process a whole lot easier
+
+```{r}
+
+# function for performing kruskal-wallis testing
+run_kruskal_wallis <- function(dataset, response, group) {
+
+    # performing the kruskal wallis test
+    formula <- as.formula(paste(response, "~", group))
+    kruskal_result <- kruskal.test(formula, data=dataset)
+    print(kruskal_result)
+
+    # accessing the p-value
+    if(kruskal_result$p.value < 0.05) {
+        cat("\n p-value is significant, running pairwise wilcox test \n")
+        rank_sum_two <- pairwise.wilcox.test(
+        x = dataset[[response]], 
+        g = dataset[[group]], 
+        p.adjust.method = "bonferroni")
+        print(rank_sum_two)
+    } else {
+        cat("\n p-value is not significant \n")
+    }
+
+}
+
+# testing out the function
+run_kruskal_wallis(account_2024, 'AvgSpend', 'FanSegment')
+
+```
+
+## Kruskal Wallis Test on SocialMediaEngagement and BasketballPropensity
+Next, we move on to performing the Kruskal-Wallis test on SocialMediaEngagement vs BasketballPropensity. As SocialMediaEngagement is a categorical 
+feature with three distinct values of Low, Medium and High, we set the null and alternative hypothesis as follows:
+
+- **Null Hypothesis:** the distribution of average propensity is the same across all engagement groups
+- **Alternative Hypothesis:** atleast one engagement category has a different distribution of propensity compared to others
+
+```{r}
+
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(account_2023, 'BasketballPropensity', 'SocialMediaEngagement')
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(account_2024, 'BasketballPropensity', 'SocialMediaEngagement')
+
+
+```
+
+## Kruskal Wallis Test on FanSegment and DistanceToArena
+Next, we move on to performing the Kruskal-Wallis test on FanSegment vs DistanceToArena. As FanSegment is a categorical feature with multiple distinct 
+features, we set the null and alternative hypothesis as follows:
+
+ - **Null Hypothesis:** the distribution of distance to arena is the same across all fan segment groups
+ - **Alternative Hypothesis:** atleast one fan segment has a different distribution of distance compared to others
+
+```{r}
+
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(account_2023, 'DistanceToArena', 'FanSegment')
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(account_2024, 'DistanceToArena', 'FanSegment')
+
+
+```
+
+For the 2023 dataset, we interpret the results as follows:
+
+- B vs A
+- C vs A, B
+- D vs A 
+- G vs C
+
+For the 2024 dataset, we interpret the results as follows:
+
+- B vs A 
+- C vs A, B
+- D vs A, B 
+- E vs A, B 
+- F vs C, D, E 
+- G vs A, B, F 
+
+## Kruskal Wallis Test on AvgSpend and SocialMediaEngagement
+Next, we move on to performing the Kruskal-Wallis test on AvgSpend vs SocialMediaEngagement. As SocialMediaEngagement is a categorical feature with 
+multiple distinct features, we set the null and alternative hypothesis as follows:
+
+ - **Null Hypothesis:** the distribution of average spending is the same across all engagement groups
+ - **Alternative Hypothesis:** atleast one engagement has a different distribution of average spending compared to others
+
+```{r}
+
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(account_2023, 'AvgSpend', 'SocialMediaEngagement')
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(account_2024, 'AvgSpend', 'SocialMediaEngagement')
+
+
+```
+
+## Kruskal Wallis Test on FanSegment and GamesAttended
+Next, we move on to performing the Kruskal-Wallis test on FanSegment vs GamesAttended. As FanSegment is a categorical feature with 
+multiple distinct features, we set the null and alternative hypothesis as follows:
+
+ - **Null Hypothesis:** the distribution of games attended is the same across all fan segment groups
+ - **Alternative Hypothesis:** atleast one fan segment has a different distribution of games attended compared to others
+
+```{r}
+
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(account_2023, 'GamesAttended', 'FanSegment')
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(account_2024, 'GamesAttended', 'FanSegment')
+
+
+```
+
+For the 2023 dataset, we interpret the results as follows:
+
+- D vs A, B
+- F vs A, B, C and E 
+- G vs A, B, C, D and E
+
+For the 2024 dataset, we interpret the results as follows:
+
+- C vs A 
+- D vs A, B 
+- E vs A, B 
+- F vs D, E 
+- G vs A, B, C, D, E and F 
+
+## Kruskal Wallis Test on SocialMediaEngagement and GamesAttended
+Next, we move on to performing the Kruskal-Wallis test on GamesAttended vs SocialMediaEngagement. As SocialMediaEngagement is a categorical feature with 
+multiple distinct features, we set the null and alternative hypothesis as follows:
+
+ - **Null Hypothesis:** the distribution of games attended is the same across all engagement groups
+ - **Alternative Hypothesis:** atleast one engagement group has a different distribution of games attended compared to others
+
+```{r}
+
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(account_2023, 'GamesAttended', 'SocialMediaEngagement')
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(account_2024, 'GamesAttended', 'SocialMediaEngagement')
+
+
+```
+
+## Creating a Function for Interactive Box Plots
+Now, we would like to create a function for plotting out the box plots for features that are significant when it comes to post-hoc testing. We would like
+to visualize them into box plots to see how they compare.
+
+```{r}
+
+# declaring the library
+library(ggplot2)
+
+# defining function for plotting a box plot
+plot_box_plot <- function(dataset, response, group, vector, title) {
+    
+    # converting group to symbol
+    group_sym <- sym(group)
+
+    # filtering out the data 
+    filtered_data <- dataset %>%
+        filter(!!group_sym %in% vector)
+    
+    
+    filtered_data[[group]] <- factor(
+        filtered_data[[group]],
+        levels = vector
+    )
+
+    ggplot(filtered_data, aes(x = .data[[group]], y = .data[[response]])) +
+        geom_boxplot(fill = "skyblue") +
+        labs(title = title, x = group, y = response) +
+        theme_minimal()
+}
+
+```
+
+## Box Plots for AvgSpend vs FanSegment
+For the 2023 data set, we create the box plots that compare the following:
+
+- F vs A, B, C and D
+- G vs A, B, C, D and E
+
+
+```{r}
+
+# setting up a list of vectors
+vector_list <- list(
+  c("F", "A"),
+  c("F", "B"),
+  c("F", "C"),
+  c("F", "D"),
+  c("G", "F") 
+)
+
+# for looping through the vectors
+for(vec in vector_list) {
+    title <- paste("Fan Segment Box Plot for", vec[1], "vs", vec[2])
+    p <- plot_box_plot(account_2023, "AvgSpend", "FanSegment", vec, title)
+    print(p)
+}
+
+```
