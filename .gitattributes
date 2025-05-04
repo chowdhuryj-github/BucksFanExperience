@@ -1,0 +1,4 @@
+*.R linguist-detectable=true
+*.r linguist-detectable=true
+*.Rmd linguist-detectable=true
+*.min.html

@@ -1,0 +1,184 @@
+---
+title: "Two Sample T-tests for Account Dataset 2023 & 2024"
+date: 'Date: May 3, 2025'
+output: html_notebook
+---
+
+# Reading in the Dataset
+We start off by reading the `.csv` file into a dataframe. This will allow us to perform the necessary operations 
+needed to extract the data that we're concerned about, as well as perform the statistical tests, which can give us 
+more insights into the data. 
+
+**Note:** it is worth noting that we apply the bonferroni correction to all of our testing as well as set the 
+signifigance level to 0.05.
+
+```{r setup, message=FALSE, warning=FALSE}
+
+library(dplyr)
+library(ggplot2)
+library(rlang)
+library(gridExtra)
+
+# reading in the account data into data frames
+account_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksBusinessObjectives/BucksDatasets/AccountLevel_2023.csv")
+account_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksBusinessObjectives/BucksDatasets/AccountLevel_2024.csv")
+
+
+```
+
+## Function for Performing T-Test
+Before we perform any t-tests, we would like to create a function that is designed to perform a t-test on the 
+features that we're interested in, as this would save us from writing multiple lines of code.
+
+```{r}
+
+# function for performing a t-test
+run_t_test <- function(data, response, group, alternative_text) {
+
+    # extracting the variables
+    response_vector <- data[[response]]
+    group_vector <- data[[group]]
+
+    # setting the variance boolean as true
+    variance_boolean <- TRUE
+
+    # performing a levene's test
+    levene_result <- var.test(response_vector ~ group_vector)
+
+    # checking for statistical signifigance
+    if(levene_result$p.value > 0.05) {
+        variance_boolean <- TRUE
+    } else {
+        variance_boolean <- FALSE
+    }
+
+    formula <- as.formula(paste(response, "~", group))
+    test_result <- t.test(formula, data=data, alternative=alternative_text, var.equal=variance_boolean)
+
+    if(test_result$p.value < 0.05) {
+        print("There is a Significant Difference")
+    } else {
+        print("There is no Significant Difference")
+    }
+
+}
+
+
+```
+
+
+## Two Sample T-test on STM vs DistanceToArena
+Now that we've read the data into a data frame, we would like to perform a t-test on comparing the STM against the
+DistanceToArena feature. We set the null and alternative hypothesis as follows:
+
+- **Null Hypothesis:** both season and non-season ticket holders on average live equal distances from the arena
+- **Alternative Hypothesis:** season ticket holders on average live closer on average to the arena than non season 
+ticket holders
+
+```{r}
+
+# running the t-test on the 2023 dataset
+run_t_test(account_2023, "DistanceToArena", "STM", "greater")
+
+# running the t-test on the 2023 dataset
+run_t_test(account_2024, "DistanceToArena", "STM", "greater")
+
+
+```
+
+## Two Sample T-test on STM vs BasketballPropensity
+Next, we would like to perform a t-test on comparing the STM against the BasketballPropensity feature. Hence, we
+set the null and alternative hypothesis as follows:
+
+- **Null Hypothesis:** both season and non-season ticket members have the same average interest in Bucks games
+- **Alternative Hypothesis:** season ticket members have a higher average of interest in Bucks games than non
+season ticket members
+
+```{r}
+
+# running the t-test on the 2023 dataset
+run_t_test(account_2023, "BasketballPropensity", "STM", "greater")
+
+# running the t-test on the 2023 dataset
+run_t_test(account_2024, "BasketballPropensity", "STM", "greater")
+
+
+```
+
+## Two Sample T-test on STM vs GamesAttended
+Next, we would like to perform a t-test on comparing the STM against the GamesAttended feature. Hence, we set the 
+null and alternative hypothesis as follows:
+
+- **Null Hypothesis:** both season and non-season ticket members attend the same average of Bucks games
+- **Alternative Hypothesis:** season ticket members have a lower average of games attended than non-season ticket
+members
+
+```{r}
+
+# running the t-test on the 2023 dataset
+run_t_test(account_2023, "GamesAttended", "STM", "less")
+
+# running the t-test on the 2023 dataset
+run_t_test(account_2024, "GamesAttended", "STM", "less")
+
+
+```
+
+## Creating a Function for Box Plots
+Now, we would like to create a function for plotting out the box plots for features that are significant when it 
+comes to post-hoc testing. We would like to visualize them into box plots to see how they compare.
+
+```{r}
+
+# declaring the library
+library(ggplot2)
+
+# defining function for plotting a box plot
+plot_box_plot <- function(dataset, variable_one, variable_two, title, year) {
+    
+
+    # plotting out the box plots
+    p <- ggplot(dataset, aes(x = .data[[variable_one]], y = .data[[variable_two]])) +
+        geom_boxplot(fill ="#00471B") +
+        labs(title = title, x = variable_one, y = variable_two) +
+        theme(
+            panel.background = element_rect(fill = "#EEE1C6", color = NA),
+            plot.background  = element_rect(fill = "#EEE1C6", color = NA),
+            panel.border     = element_rect(color = "black", fill = NA, linewidth = 0.8),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank()
+        )
+
+    # creating the filename
+    filename <- paste0("C:/GitHub/BucksHackathon25/BucksHypothesisTesting/T-TestPlots", year,
+    "/",title, ".png")
+
+    #saving the plot in a directory
+    ggsave(filename, plot = p, width = 6, height = 4, dpi=300, bg='white')
+}
+
+```
+
+
+## Creating Box Plots Using Our Function
+For the final step, we decide to create the box plots that we need when it comes to comparing the STM against the 
+DistanceToArena, BasketballPropensity and GamesAttended.
+
+```{r}
+
+# converting into factor
+account_2023[['STM']] <- as.factor(account_2023[['STM']])
+account_2024[['STM']] <- as.factor(account_2024[['STM']])
+
+feature_list <- c("DistanceToArena", "BasketballPropensity", "GamesAttended")
+for(feature in feature_list) {
+    title <- paste0("STM vs ",feature, " Box Plot")
+    plot_box_plot(account_2023, "STM", feature, title, "2023")
+}
+
+for(feature in feature_list) {
+    title <- paste0("STM vs ", feature, " Box Plot")
+    plot_box_plot(account_2024, "STM", feature, title, "2024")
+}
+
+```
