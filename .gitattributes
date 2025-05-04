@@ -3,4 +3,5 @@
 *.Rmd linguist-detectable=true
 *.min.html
 *.ipynb
+*.html linguist-generated=true
 
