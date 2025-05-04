@@ -5,10 +5,12 @@ output: html_notebook
 ---
 
 # Reading in the Dataset
-We start off by reading the `.csv` file into a dataframe. This will allow us to perform the necessary operations needed to extract the data that we're
-concerned about, as well as perform the statistical tests, which can give us more insights into the data. 
+We start off by reading the `.csv` file into a dataframe. This will allow us to perform the necessary operations 
+needed to extract the data that we're concerned about, as well as perform the statistical tests, which can give us 
+more insights into the data. 
 
-**Note:** it is worth noting that we apply the bonferroni correction to all of our testing as well as set the signifigance level to 0.05.
+**Note:** it is worth noting that we apply the bonferroni correction to all of our testing as well as set the 
+signifigance level to 0.05.
 
 ```{r setup, message=FALSE, warning=FALSE}
 
@@ -248,7 +250,7 @@ run_kruskal_wallis(account_2024, 'GamesAttended', 'SocialMediaEngagement')
 
 ```
 
-## Creating a Function for Interactive Box Plots
+## Creating a Function for Box Plots
 Now, we would like to create a function for plotting out the box plots for features that are significant when it comes to post-hoc testing. We would like
 to visualize them into box plots to see how they compare.
 
@@ -258,7 +260,7 @@ to visualize them into box plots to see how they compare.
 library(ggplot2)
 
 # defining function for plotting a box plot
-plot_box_plot <- function(dataset, response, group, vector, title) {
+plot_box_plot <- function(dataset, response, group, vector, title, year) {
     
     # converting group to symbol
     group_sym <- sym(group)
@@ -273,10 +275,24 @@ plot_box_plot <- function(dataset, response, group, vector, title) {
         levels = vector
     )
 
-    ggplot(filtered_data, aes(x = .data[[group]], y = .data[[response]])) +
-        geom_boxplot(fill = "skyblue") +
+    # plotting out the box plots
+    p <- ggplot(filtered_data, aes(x = .data[[group]], y = .data[[response]])) +
+        geom_boxplot(fill ="#00471B") +
         labs(title = title, x = group, y = response) +
-        theme_minimal()
+        theme(
+            panel.background = element_rect(fill = "#EEE1C6", color = NA),
+            plot.background  = element_rect(fill = "#EEE1C6", color = NA),
+            panel.border     = element_rect(color = "black", fill = NA, linewidth = 0.8),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank()
+        )
+
+    # creating the filename
+    filename <- paste0("C:/GitHub/BucksHackathon25/BucksHypothesisTesting/KruskalWallisPlots",year, 
+    "/",title, ".png")
+
+    #saving the plot in a directory
+    ggsave(filename, plot = p, width = 6, height = 4, dpi=300, bg='white')
 }
 
 ```
@@ -296,13 +312,188 @@ vector_list <- list(
   c("F", "B"),
   c("F", "C"),
   c("F", "D"),
-  c("G", "F") 
+  c("G", "A"),
+  c("G", "B"),
+  c("G", "C"),
+  c("G", "D"),
+  c("G", "E")
 )
 
 # for looping through the vectors
 for(vec in vector_list) {
-    title <- paste("Fan Segment Box Plot for", vec[1], "vs", vec[2])
-    p <- plot_box_plot(account_2023, "AvgSpend", "FanSegment", vec, title)
+    title <- paste("FanSegment-AvgSpend Box Plot for", vec[1], "vs", vec[2], "2023")
+    p <- plot_box_plot(account_2023, "AvgSpend", "FanSegment", vec, title, "2023")
+    print(p)
+}
+
+```
+
+## Box Plots for AvgSpend vs FanSegment
+For the 2024 data set, we create the box plots that compare the following:
+
+- E vs A, C and D
+- F vs A and D 
+- G vs A, B, C, D, E, F
+
+
+```{r}
+
+# setting up a list of vectors
+vector_list <- list(
+  c("E", "A"),
+  c("E", "C"),
+  c("E", "D"),
+  c("F", "A"),
+  c("F", "D"),
+  c("G", "A"),
+  c("G", "B"),
+  c("G", "C"),
+  c("G", "D"),
+  c("G", "E"),
+  c("G", "F")
+)
+
+# for looping through the vectors
+for(vec in vector_list) {
+    title <- paste("FanSegment-AvgSpend Box Plot for", vec[1], "vs", vec[2], "2024")
+    p <- plot_box_plot(account_2024, "AvgSpend", "FanSegment", vec, title, "2024")
+    print(p)
+}
+
+```
+
+## Box Plots for DistanceToArena vs FanSegment
+For the 2023 dataset, we interpret the results as follows:
+
+- B vs A
+- C vs A, B
+- D vs A
+- G vs C
+
+```{r}
+
+# setting up a list of vectors
+vector_list <- list(
+  c("B", "A"),
+  c("C", "A"),
+  c("C", "B"),
+  c("D", "A"),
+  c("G", "C")
+
+)
+
+# for looping through the vectors
+for(vec in vector_list) {
+    title <- paste("FanSegment-DistanceToArena Box Plot for", vec[1], "vs", vec[2], "2023")
+    p <- plot_box_plot(account_2023, "DistanceToArena", "FanSegment", vec, title, "2023")
+    print(p)
+}
+
+```
+
+For the 2024 dataset, we interpret the results as follows:
+
+- B vs A
+- C vs A, B
+- D vs A, B
+- E vs A, B
+- F vs C, D, E
+- G vs A, B, F
+
+```{r}
+
+# setting up a list of vectors
+vector_list <- list(
+  c("B", "A"),
+  c("C", "A"),
+  c("C", "B"),
+  c("D", "A"),
+  c("D", "B"),
+  c("E", "A"),
+  c("E", "B"),
+  c("F", "C"),
+  c("F", "D"),
+  c("F", "E"),
+  c("G", "A"),
+  c("G", "B"),
+  c("G", "F")
+
+)
+
+# for looping through the vectors
+for(vec in vector_list) {
+    title <- paste("FanSegment-DistanceToArena Box Plot for", vec[1], "vs", vec[2], "2024")
+    p <- plot_box_plot(account_2024, "DistanceToArena", "FanSegment", vec, title, "2024")
+    print(p)
+}
+
+```
+
+## Box Plots for GamesAttended vs FanSegment
+For the 2023 dataset, we interpret the results as follows:
+
+- D vs A, B
+- F vs A, B, C and E
+- G vs A, B, C, D and E
+
+```{r}
+
+# setting up a list of vectors
+vector_list <- list(
+  c("D", "A"),
+  c("D", "B"),
+  c("F", "A"),
+  c("F", "B"),
+  c("F", "C"),
+  c("F", "E"),
+  c("G", "A"),
+  c("G", "B"),
+  c("G", "C"),
+  c("G", "D"),
+  c("G", "E")
+
+)
+
+# for looping through the vectors
+for(vec in vector_list) {
+    title <- paste("FanSegment-GamesAttended Box Plot for", vec[1], "vs", vec[2], "2023")
+    p <- plot_box_plot(account_2023, "GamesAttended", "FanSegment", vec, title, "2023")
+    print(p)
+}
+
+```
+
+For the 2024 dataset, we interpret the results as follows:
+
+- C vs A
+- D vs A, B
+- E vs A, B
+- F vs D, E
+- G vs A, B, C, D, E and F
+
+```{r}
+
+# setting up a list of vectors
+vector_list <- list(
+    c("C", "A"),
+    c("D", "A"),
+    c("D", "B"),
+    c("E", "A"),
+    c("E", "B"),
+    c("F", "D"),
+    c("F", "E"),
+    c("G", "A"),
+    c("G", "B"),
+    c("G", "C"),
+    c("G", "D"),
+    c("G", "E"),
+    c("G", "F")
+)
+
+# for looping through the vectors
+for(vec in vector_list) {
+    title <- paste("FanSegment-GamesAttended Box Plot for", vec[1], "vs", vec[2], "2024")
+    p <- plot_box_plot(account_2024, "GamesAttended", "FanSegment", vec, title, "2024")
     print(p)
 }
 
