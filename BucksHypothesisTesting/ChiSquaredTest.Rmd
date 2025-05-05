@@ -74,8 +74,6 @@ The Null and Alternative Hypothesis is stated as follows:
 
 ```{r}
 
-sort(unique(account_2023$FanSegment))
-
 # running the chi-squared test function for the 2023 dataset
 run_chi_squared_test(account_2023, 'FanSegment', 'STM')
 

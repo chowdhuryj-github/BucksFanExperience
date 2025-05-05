@@ -415,18 +415,19 @@ run_t_test &lt;- function(data, response, group, alternative_text) {
 perform a t-test on comparing the STM against the DistanceToArena
 feature. We set the null and alternative hypothesis as follows:</p>
 <ul>
-<li><strong>Null Hypothesis:</strong> both season and non-season ticket
-holders on average live equal distances from the arena</li>
-<li><strong>Alternative Hypothesis:</strong> season ticket holders on
-average live closer on average to the arena than non season ticket
+<li><strong>Null Hypothesis:</strong> season ticket members live the
+same distance or farther from the arena compared to non-season ticket
+members</li>
+<li><strong>Alternative Hypothesis:</strong> season ticket members live
+closer to the arena on average than non-season ticket members ticket
 holders</li>
 </ul>
 <pre class="r"><code># running the t-test on the 2023 dataset
-run_t_test(account_2023, &quot;DistanceToArena&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
+run_t_test(account_2023, &quot;DistanceToArena&quot;, &quot;STM&quot;, &quot;less&quot;)</code></pre>
 <pre><code>## [1] &quot;There is no Significant Difference&quot;</code></pre>
-<pre class="r"><code># running the t-test on the 2023 dataset
-run_t_test(account_2024, &quot;DistanceToArena&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
-<pre><code>## [1] &quot;There is a Significant Difference&quot;</code></pre>
+<pre class="r"><code># running the t-test on the 2024 dataset
+run_t_test(account_2024, &quot;DistanceToArena&quot;, &quot;STM&quot;, &quot;less&quot;)</code></pre>
+<pre><code>## [1] &quot;There is no Significant Difference&quot;</code></pre>
 </div>
 <div id="two-sample-t-test-on-stm-vs-basketballpropensity" class="section level2">
 <h2>Two Sample T-test on STM vs BasketballPropensity</h2>
@@ -435,7 +436,7 @@ the BasketballPropensity feature. Hence, we set the null and alternative
 hypothesis as follows:</p>
 <ul>
 <li><strong>Null Hypothesis:</strong> both season and non-season ticket
-members have the same average interest in Bucks games</li>
+members have the same average interest or greater in Bucks games</li>
 <li><strong>Alternative Hypothesis:</strong> season ticket members have
 a higher average of interest in Bucks games than non season ticket
 members</li>
@@ -454,16 +455,16 @@ the GamesAttended feature. Hence, we set the null and alternative
 hypothesis as follows:</p>
 <ul>
 <li><strong>Null Hypothesis:</strong> both season and non-season ticket
-members attend the same average of Bucks games</li>
+members attend the same average or fewer of Bucks games</li>
 <li><strong>Alternative Hypothesis:</strong> season ticket members have
-a lower average of games attended than non-season ticket members</li>
+a higher average of games attended than non-season ticket members</li>
 </ul>
 <pre class="r"><code># running the t-test on the 2023 dataset
-run_t_test(account_2023, &quot;GamesAttended&quot;, &quot;STM&quot;, &quot;less&quot;)</code></pre>
-<pre><code>## [1] &quot;There is a Significant Difference&quot;</code></pre>
+run_t_test(account_2023, &quot;GamesAttended&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
+<pre><code>## [1] &quot;There is no Significant Difference&quot;</code></pre>
 <pre class="r"><code># running the t-test on the 2023 dataset
-run_t_test(account_2024, &quot;GamesAttended&quot;, &quot;STM&quot;, &quot;less&quot;)</code></pre>
-<pre><code>## [1] &quot;There is a Significant Difference&quot;</code></pre>
+run_t_test(account_2024, &quot;GamesAttended&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
+<pre><code>## [1] &quot;There is no Significant Difference&quot;</code></pre>
 </div>
 <div id="creating-a-function-for-box-plots" class="section level2">
 <h2>Creating a Function for Box Plots</h2>

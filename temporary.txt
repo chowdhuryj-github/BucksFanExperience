@@ -1,2 +1,2 @@
 Rscript -e "rmarkdown::render('C:/GitHub/BucksHackathon25/BucksHypothesisTesting/KruskalWallis.Rmd', output_format = 'html_document')"
-Rscript -e "rmarkdown::render('C:/GitHub/BucksHackathon25/BucksHypothesisTesting/ChiSquaredTest.Rmd', output_format = 'html_document', output_dir = 'C:/GitHub/BucksHackathon25/BucksHTMLFiles')"
+Rscript -e "rmarkdown::render('C:/GitHub/BucksHackathon25/BucksHypothesisTesting/TwoSampleTest.Rmd', output_format = 'html_document', output_dir = 'C:/GitHub/BucksHackathon25/BucksHTMLFiles')"
