@@ -20,8 +20,8 @@ library(rlang)
 library(gridExtra)
 
 # reading in the account data into data frames
-account_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksBusinessObjectives/BucksDatasets/AccountLevel_2023.csv")
-account_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksBusinessObjectives/BucksDatasets/AccountLevel_2024.csv")
+account_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2023.csv")
+account_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2024.csv")
 
 
 ```
