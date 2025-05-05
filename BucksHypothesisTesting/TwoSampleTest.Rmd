@@ -71,17 +71,17 @@ run_t_test <- function(data, response, group, alternative_text) {
 Now that we've read the data into a data frame, we would like to perform a t-test on comparing the STM against the
 DistanceToArena feature. We set the null and alternative hypothesis as follows:
 
-- **Null Hypothesis:** both season and non-season ticket holders on average live equal distances from the arena
-- **Alternative Hypothesis:** season ticket holders on average live closer on average to the arena than non season 
+- **Null Hypothesis:** season ticket members live the same distance or farther from the arena compared to non-season ticket members
+- **Alternative Hypothesis:** season ticket members live closer to the arena on average than non-season ticket members
 ticket holders
 
 ```{r}
 
 # running the t-test on the 2023 dataset
-run_t_test(account_2023, "DistanceToArena", "STM", "greater")
+run_t_test(account_2023, "DistanceToArena", "STM", "less")
 
-# running the t-test on the 2023 dataset
-run_t_test(account_2024, "DistanceToArena", "STM", "greater")
+# running the t-test on the 2024 dataset
+run_t_test(account_2024, "DistanceToArena", "STM", "less")
 
 
 ```
@@ -90,7 +90,7 @@ run_t_test(account_2024, "DistanceToArena", "STM", "greater")
 Next, we would like to perform a t-test on comparing the STM against the BasketballPropensity feature. Hence, we
 set the null and alternative hypothesis as follows:
 
-- **Null Hypothesis:** both season and non-season ticket members have the same average interest in Bucks games
+- **Null Hypothesis:** both season and non-season ticket members have the same average interest or greater in Bucks games
 - **Alternative Hypothesis:** season ticket members have a higher average of interest in Bucks games than non
 season ticket members
 
@@ -109,17 +109,17 @@ run_t_test(account_2024, "BasketballPropensity", "STM", "greater")
 Next, we would like to perform a t-test on comparing the STM against the GamesAttended feature. Hence, we set the 
 null and alternative hypothesis as follows:
 
-- **Null Hypothesis:** both season and non-season ticket members attend the same average of Bucks games
-- **Alternative Hypothesis:** season ticket members have a lower average of games attended than non-season ticket
+- **Null Hypothesis:** both season and non-season ticket members attend the same average or fewer of Bucks games
+- **Alternative Hypothesis:** season ticket members have a higher average of games attended than non-season ticket
 members
 
 ```{r}
 
 # running the t-test on the 2023 dataset
-run_t_test(account_2023, "GamesAttended", "STM", "less")
+run_t_test(account_2023, "GamesAttended", "STM", "greater")
 
 # running the t-test on the 2023 dataset
-run_t_test(account_2024, "GamesAttended", "STM", "less")
+run_t_test(account_2024, "GamesAttended", "STM", "greater")
 
 
 ```
