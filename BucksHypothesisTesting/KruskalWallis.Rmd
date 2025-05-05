@@ -20,8 +20,12 @@ library(rlang)
 library(gridExtra)
 
 # reading in the account data into data frames
-account_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksBusinessObjectives/BucksDatasets/AccountLevel_2023.csv")
-account_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksBusinessObjectives/BucksDatasets/AccountLevel_2024.csv")
+account_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2023.csv")
+account_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2024.csv")
+
+# reading in the account/seat data into data frames
+account_seat_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/ALSL_2023.csv")
+account_seat_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/ALSL_2024.csv")
 
 
 ```
@@ -249,6 +253,68 @@ run_kruskal_wallis(account_2024, 'GamesAttended', 'SocialMediaEngagement')
 
 
 ```
+
+## Kruskal Wallis Test on DistanceToArena and GameTier
+Next, we move on to performing the Kruskal-Wallis test on DistanceToArena vs GameTier. As GameTier is a categorical feature with  multiple distinct features, 
+we set the null and alternative hypothesis as follows:
+
+ - **Null Hypothesis:** the distribution of DistanceToArena is the same across all tier groups
+ - **Alternative Hypothesis:** atleast one tier group has a different distribution of DistanceToArena compared to others
+
+```{r}
+
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(account_seat_2023, 'DistanceToArena', 'GameTier')
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(account_seat_2024, 'DistanceToArena', 'GameTier')
+
+
+```
+
+For the 2023 dataset, we interpret the results as follows:
+- B vs A 
+- C vs A, B 
+- D vs A, C
+
+For the 2024 dataset, we interpret the results as follows:
+- C vs A, B 
+- D vs B, C 
+
+## Kruskal Wallis Test on GamesAttended and FanSegment 
+Next, we move on to performing the Kruskal-Wallis test on GamesAttended vs FanSegment. As FanSegment is a categorical feature with multiple distinct features, 
+we set the null and alternative hypothesis as follows:
+
+ - **Null Hypothesis:** the distribution of GamesAttended is the same across all tier groups
+ - **Alternative Hypothesis:** atleast one FanSegment group has a different distribution of GamesAttended compared to others
+
+```{r}
+
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(account_seat_2023, 'GamesAttended', 'FanSegment')
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(account_seat_2024, 'GamesAttended', 'FanSegment')
+
+
+```
+
+For the 2023 dataset, we interpret the results as follows:
+- B vs A 
+- C vs A, B 
+- D vs A, B, C 
+- E vs B, D 
+- F vs A, B, C, E 
+- G vs A, B, C, D, E 
+
+For the 2024 dataset, we interpret the results as follows:
+- B vs A 
+- C vs A, B 
+- D vs A, B, C 
+- E vs A, B, C, D 
+- F vs A, B, C, D, E 
+- G vs A, B, C, D, F
+
 
 ## Creating a Function for Box Plots
 Now, we would like to create a function for plotting out the box plots for features that are significant when it comes to post-hoc testing. We would like
@@ -496,5 +562,137 @@ for(vec in vector_list) {
     p <- plot_box_plot(account_2024, "GamesAttended", "FanSegment", vec, title, "2024")
     print(p)
 }
+
+```
+
+## Box Plots for DistanceToArena vs GameTier
+For the 2023 dataset, we interpret the results as follows:
+- B vs A 
+- C vs A, B 
+- D vs A, C
+
+```{r}
+# setting up a list of vectors
+vector_list <- list(
+    c("B", "A"),
+    c("C", "A"),
+    c("C", "B"),
+    c("D", "A"),
+    c("D", "C")
+)
+
+# for looping through the vectors
+for(vec in vector_list) {
+    title <- paste("DistanceToArena-GameTier Box Plot for", vec[1], "vs", vec[2], "2023")
+    p <- plot_box_plot(account_seat_2023, "DistanceToArena", "GameTier", vec, title, "2023")
+    print(p)
+}
+
+```
+
+
+For the 2024 dataset, we interpret the results as follows:
+- C vs A, B 
+- D vs B, C 
+
+```{r}
+# setting up a list of vectors
+vector_list <- list(
+    c("C", "A"),
+    c("C", "B"),
+    c("D", "B"),
+    c("D", "C")
+)
+
+# for looping through the vectors
+for(vec in vector_list) {
+    title <- paste("DistanceToArena-GameTier Box Plot for", vec[1], "vs", vec[2], "2024")
+    p <- plot_box_plot(account_seat_2024, "DistanceToArena", "GameTier", vec, title, "2024")
+    print(p)
+}
+
+
+```
+
+## Box Plots for GamesAttended vs FanSegment
+For the 2023 dataset, we interpret the results as follows:
+- B vs A 
+- C vs A, B 
+- D vs A, B, C 
+- E vs B, D 
+- F vs A, B, C, E 
+- G vs A, B, C, D, E 
+
+```{r}
+# setting up a list of vectors
+vector_list <- list(
+    c("B", "A"),
+    c("C", "A"),
+    c("C", "B"),
+    c("D", "A"),
+    c("D", "B"),
+    c("D", "C"),
+    c("E", "B"),
+    c("E", "D"),
+    c("F", "A"),
+    c("F", "B"),
+    c("F", "C"),
+    c("F", "E"),
+    c("G", "A"),
+    c("G", "B"),
+    c("G", "C"),
+    c("G", "D"),
+    c("G", "E")
+)
+
+# for looping through the vectors
+for(vec in vector_list) {
+    title <- paste("GamesAttended-FanSegment Box Plot for", vec[1], "vs", vec[2], "2023")
+    p <- plot_box_plot(account_seat_2023, "GamesAttended", "FanSegment", vec, title, "2023")
+    print(p)
+}
+
+```
+
+For the 2024 dataset, we interpret the results as follows:
+- B vs A 
+- C vs A, B 
+- D vs A, B, C 
+- E vs A, B, C, D 
+- F vs A, B, C, D, E 
+- G vs A, B, C, D, F
+
+```{r}
+# setting up a list of vectors
+vector_list <- list(
+    c("B", "A"),
+    c("C", "A"),
+    c("C", "B"),
+    c("D", "A"),
+    c("D", "B"),
+    c("D", "C"),
+    c("E", "A"),
+    c("E", "B"),
+    c("E", "C"),
+    c("E", "D"),
+    c("F", "A"),
+    c("F", "B"),
+    c("F", "C"),
+    c("F", "D"),
+    c("F", "E"),
+    c("G", "A"),
+    c("G", "B"),
+    c("G", "C"),
+    c("G", "D"),
+    c("G", "F")
+)
+
+# for looping through the vectors
+for(vec in vector_list) {
+    title <- paste("GamesAttended-FanSegment Box Plot for", vec[1], "vs", vec[2], "2024")
+    p <- plot_box_plot(account_seat_2024, "GamesAttended", "FanSegment", vec, title, "2024")
+    print(p)
+}
+
 
 ```
