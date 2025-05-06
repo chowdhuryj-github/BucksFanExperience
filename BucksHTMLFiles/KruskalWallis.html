@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Kruskal Wallis Tests for Account Dataset 2023 &amp; 2024</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Kruskal Wallis Tests for Account Dataset 2023 &amp;
+2024</h1>
+<p class="date">Date: May 3, 2025</p>
+</header>
+<h1 id="reading-in-the-dataset">Reading in the Dataset</h1>
+<p>We start off by reading the <code>.csv</code> file into a dataframe.
+This will allow us to perform the necessary operations needed to extract
+the data that we’re concerned about, as well as perform the statistical
+tests, which can give us more insights into the data.</p>
+<p><strong>Note:</strong> it is worth noting that we apply the
+bonferroni correction to all of our testing as well as set the
+signifigance level to 0.05.</p>
+<p>```{r setup, message=FALSE, warning=FALSE}</p>
+<p>library(dplyr) library(ggplot2) library(rlang) library(gridExtra)</p>
+<h1 id="reading-in-the-account-data-into-data-frames">reading in the
+account data into data frames</h1>
+<p>ALGLSL_2023 &lt;-
+read.csv(“C:/GitHub/BucksHackathon25/BucksDatasets/ALGLSL_2023.csv”)
+ALGLSL_2024 &lt;-
+read.csv(“C:/GitHub/BucksHackathon25/BucksDatasets/ALGLSL_2024.csv”)
+CustomerPlans &lt;-
+read.csv(“C:/GitHub/BucksHackathon25/BucksDatasets/CustomerPlans_2023.csv”)</p>
+<pre><code>
+## Kruskal Wallis Test on AvgSpend and FanSegment
+Now that we&#39;ve read the data into a data frame, we would like to perform a kruskal wallis test on the AvgSpend vs the FanSegment from both datasets. This
+will allow us compare a numerical variable against a categorical variable with multiple values. 
+
+- **Null Hyypothesis:** the distribution of average spending is the same across all segments
+- **Alternative Hypothesis:** atleast one fan segment has a different distribution of average spending compared to others
+
+```{r}
+
+# performing a kruskal-wallis test
+kruskal_one &lt;- kruskal.test(AvgSpend ~ FanSegment, data=ALGLSL_2023)
+print(kruskal_one)
+
+</code></pre>
+<pre class="{r}"><code>
+# setting the data type as factor
+ALGLSL_2023$FanSegment &lt;- as.factor(ALGLSL_2023$FanSegment)
+
+
+# performing the pair wise testing
+rank_sum_one &lt;- pairwise.wilcox.test(
+    x = ALGLSL_2023$AvgSpend, 
+    g = ALGLSL_2023$FanSegment, 
+    p.adjust.method = &quot;bonferroni&quot;)
+
+# printg out the results
+print(rank_sum_one)
+
+</code></pre>
+<pre class="{r}"><code>
+# performing a kruskal-wallis test
+kruskal_two &lt;- kruskal.test(AvgSpend ~ FanSegment, data=ALGLSL_2024)
+print(kruskal_two)
+
+# setting the data type as factor
+ALGLSL_2024$FanSegment &lt;- as.factor(ALGLSL_2024$FanSegment)
+
+# performing the pair wise testing
+rank_sum_two &lt;- pairwise.wilcox.test(
+    x = ALGLSL_2024$AvgSpend, 
+    g = ALGLSL_2024$FanSegment, 
+    p.adjust.method = &quot;bonferroni&quot;)
+
+# printg out the results
+print(rank_sum_two)
+
+</code></pre>
+<h2
+id="creating-a-function-for-performing-kruskal-wallis-tests">Creating a
+Function for Performing Kruskal-Wallis Tests</h2>
+<p>Understanding the Kurskal-Wallis process, we decide to make a
+function that will make the process a whole lot easier</p>
+<pre class="{r}"><code>
+# function for performing kruskal-wallis testing
+run_kruskal_wallis &lt;- function(dataset, response, group) {
+
+    # performing the kruskal wallis test
+    formula &lt;- as.formula(paste(response, &quot;~&quot;, group))
+    kruskal_result &lt;- kruskal.test(formula, data=dataset)
+    print(kruskal_result)
+
+    # accessing the p-value
+    if(kruskal_result$p.value &lt; 0.05) {
+        cat(&quot;\n p-value is significant, running pairwise wilcox test \n&quot;)
+        rank_sum_two &lt;- pairwise.wilcox.test(
+        x = dataset[[response]], 
+        g = dataset[[group]], 
+        p.adjust.method = &quot;bonferroni&quot;)
+        print(rank_sum_two)
+    } else {
+        cat(&quot;\n p-value is not significant \n&quot;)
+    }
+
+}
+
+# testing out the function
+run_kruskal_wallis(ALGLSL_2024, &#39;AvgSpend&#39;, &#39;FanSegment&#39;)
+</code></pre>
+<h2
+id="kruskal-wallis-test-on-socialmediaengagement-and-basketballpropensity">Kruskal
+Wallis Test on SocialMediaEngagement and BasketballPropensity</h2>
+<p>Next, we move on to performing the Kruskal-Wallis test on
+SocialMediaEngagement vs BasketballPropensity. As SocialMediaEngagement
+is a categorical feature with three distinct values of Low, Medium and
+High, we set the null and alternative hypothesis as follows:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> the distribution of average
+propensity is the same across all engagement groups</li>
+<li><strong>Alternative Hypothesis:</strong> atleast one engagement
+category has a different distribution of propensity compared to
+others</li>
+</ul>
+<pre class="{r}"><code>
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(ALGLSL_2023, &#39;BasketballPropensity&#39;, &#39;SocialMediaEngagement&#39;)
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(ALGLSL_2024, &#39;BasketballPropensity&#39;, &#39;SocialMediaEngagement&#39;)
+
+</code></pre>
+<h2 id="kruskal-wallis-test-on-fansegment-and-distancetoarena">Kruskal
+Wallis Test on FanSegment and DistanceToArena</h2>
+<p>Next, we move on to performing the Kruskal-Wallis test on FanSegment
+vs DistanceToArena. As FanSegment is a categorical feature with multiple
+distinct features, we set the null and alternative hypothesis as
+follows:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> the distribution of distance to
+arena is the same across all fan segment groups</li>
+<li><strong>Alternative Hypothesis:</strong> atleast one fan segment has
+a different distribution of distance compared to others</li>
+</ul>
+<pre class="{r}"><code>
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(ALGLSL_2023, &#39;DistanceToArena&#39;, &#39;FanSegment&#39;)
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(ALGLSL_2024, &#39;DistanceToArena&#39;, &#39;FanSegment&#39;)
+
+</code></pre>
+<h2
+id="kruskal-wallis-test-on-avgspend-and-socialmediaengagement">Kruskal
+Wallis Test on AvgSpend and SocialMediaEngagement</h2>
+<p>Next, we move on to performing the Kruskal-Wallis test on AvgSpend vs
+SocialMediaEngagement. As SocialMediaEngagement is a categorical feature
+with multiple distinct features, we set the null and alternative
+hypothesis as follows:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> the distribution of average
+spending is the same across all engagement groups</li>
+<li><strong>Alternative Hypothesis:</strong> atleast one engagement has
+a different distribution of average spending compared to others</li>
+</ul>
+<pre class="{r}"><code>
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(ALGLSL_2023, &#39;AvgSpend&#39;, &#39;SocialMediaEngagement&#39;)
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(ALGLSL_2024, &#39;AvgSpend&#39;, &#39;SocialMediaEngagement&#39;)
+
+</code></pre>
+<h2 id="kruskal-wallis-test-on-fansegment-and-gamesattended">Kruskal
+Wallis Test on FanSegment and GamesAttended</h2>
+<p>Next, we move on to performing the Kruskal-Wallis test on FanSegment
+vs GamesAttended. As FanSegment is a categorical feature with multiple
+distinct features, we set the null and alternative hypothesis as
+follows:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> the distribution of games attended
+is the same across all fan segment groups</li>
+<li><strong>Alternative Hypothesis:</strong> atleast one fan segment has
+a different distribution of games attended compared to others</li>
+</ul>
+<pre class="{r}"><code>
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(ALGLSL_2023, &#39;GamesAttended&#39;, &#39;FanSegment&#39;)
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(ALGLSL_2024, &#39;GamesAttended&#39;, &#39;FanSegment&#39;)
+
+</code></pre>
+<h2
+id="kruskal-wallis-test-on-socialmediaengagement-and-gamesattended">Kruskal
+Wallis Test on SocialMediaEngagement and GamesAttended</h2>
+<p>Next, we move on to performing the Kruskal-Wallis test on
+GamesAttended vs SocialMediaEngagement. As SocialMediaEngagement is a
+categorical feature with multiple distinct features, we set the null and
+alternative hypothesis as follows:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> the distribution of games attended
+is the same across all engagement groups</li>
+<li><strong>Alternative Hypothesis:</strong> atleast one engagement
+group has a different distribution of games attended compared to
+others</li>
+</ul>
+<pre class="{r}"><code>
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(ALGLSL_2023, &#39;GamesAttended&#39;, &#39;SocialMediaEngagement&#39;)
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(ALGLSL_2024, &#39;GamesAttended&#39;, &#39;SocialMediaEngagement&#39;)
+
+</code></pre>
+<h2 id="kruskal-wallis-test-on-distancetoarena-and-gametier">Kruskal
+Wallis Test on DistanceToArena and GameTier</h2>
+<p>Next, we move on to performing the Kruskal-Wallis test on
+DistanceToArena vs GameTier. As GameTier is a categorical feature with
+multiple distinct features, we set the null and alternative hypothesis
+as follows:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> the distribution of
+DistanceToArena is the same across all tier groups</li>
+<li><strong>Alternative Hypothesis:</strong> atleast one tier group has
+a different distribution of DistanceToArena compared to others</li>
+</ul>
+<pre class="{r}"><code>
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(ALGLSL_2023, &#39;DistanceToArena&#39;, &#39;GameTier&#39;)
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(ALGLSL_2024, &#39;DistanceToArena&#39;, &#39;GameTier&#39;)
+
+</code></pre>
+<h2 id="kruskal-wallis-test-on-gamesattended-and-fansegment">Kruskal
+Wallis Test on GamesAttended and FanSegment</h2>
+<p>Next, we move on to performing the Kruskal-Wallis test on
+GamesAttended vs FanSegment. As FanSegment is a categorical feature with
+multiple distinct features, we set the null and alternative hypothesis
+as follows:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> the distribution of GamesAttended
+is the same across all tier groups</li>
+<li><strong>Alternative Hypothesis:</strong> atleast one FanSegment
+group has a different distribution of GamesAttended compared to
+others</li>
+</ul>
+<pre class="{r}"><code>
+# running the kruskal-wallis test for the 2023 dataset
+run_kruskal_wallis(ALGLSL_2023, &#39;GamesAttended&#39;, &#39;FanSegment&#39;)
+
+# running the kruskal-wallis test for the 2024 dataset
+run_kruskal_wallis(ALGLSL_2024, &#39;GamesAttended&#39;, &#39;FanSegment&#39;)
+
+</code></pre>
+<h2
+id="kruskal-wallis-test-on-cluster-and-basketballpropensity-avgspend-gamesattended-distancetoarena">Kruskal
+Wallis Test on Cluster and BasketballPropensity, AvgSpend,
+GamesAttended, DistanceToArena</h2>
+<pre class="{r}"><code>
+features = c(&#39;BasketballPropensity&#39;, &#39;AvgSpend&#39;, &#39;GamesAttended&#39;, &#39;DistanceToArena&#39;)
+for (feature in features) {
+    run_kruskal_wallis  (CustomerPlans, &#39;Cluster&#39;, feature)
+}
+</code></pre>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"93b5d2987f85a465","version":"2025.4.0-1-g37f21b1","r":1,"token":"0357a45f23a943f08700f7f9af191ee6","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
+</body>
+</html>

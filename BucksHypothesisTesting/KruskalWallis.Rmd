@@ -248,7 +248,7 @@ run_kruskal_wallis(ALGLSL_2024, 'GamesAttended', 'FanSegment')
 
 features = c('BasketballPropensity', 'AvgSpend', 'GamesAttended', 'DistanceToArena')
 for (feature in features) {
-    run_chi_squared_test(CustomerPlans, 'Cluster', feature)
+    run_kruskal_wallis  (CustomerPlans, 'Cluster', feature)
 }
 
 ```
