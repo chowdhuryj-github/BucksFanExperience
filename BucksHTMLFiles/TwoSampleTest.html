@@ -370,8 +370,8 @@ library(rlang)
 library(gridExtra)
 
 # reading in the account data into data frames
-account_2023 &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2023.csv&quot;)
-account_2024 &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2024.csv&quot;)</code></pre>
+ALGLSL_2023 &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/ALGLSL_2023.csv&quot;)
+ALGLSL_2024 &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/ALGLSL_2024.csv&quot;)</code></pre>
 <div id="function-for-performing-t-test" class="section level2">
 <h2>Function for Performing T-Test</h2>
 <p>Before we perform any t-tests, we would like to create a function
@@ -423,10 +423,10 @@ closer to the arena on average than non-season ticket members ticket
 holders</li>
 </ul>
 <pre class="r"><code># running the t-test on the 2023 dataset
-run_t_test(account_2023, &quot;DistanceToArena&quot;, &quot;STM&quot;, &quot;less&quot;)</code></pre>
+run_t_test(ALGLSL_2023, &quot;DistanceToArena&quot;, &quot;STM&quot;, &quot;less&quot;)</code></pre>
 <pre><code>## [1] &quot;There is no Significant Difference&quot;</code></pre>
 <pre class="r"><code># running the t-test on the 2024 dataset
-run_t_test(account_2024, &quot;DistanceToArena&quot;, &quot;STM&quot;, &quot;less&quot;)</code></pre>
+run_t_test(ALGLSL_2024, &quot;DistanceToArena&quot;, &quot;STM&quot;, &quot;less&quot;)</code></pre>
 <pre><code>## [1] &quot;There is no Significant Difference&quot;</code></pre>
 </div>
 <div id="two-sample-t-test-on-stm-vs-basketballpropensity" class="section level2">
@@ -442,10 +442,10 @@ a higher average of interest in Bucks games than non season ticket
 members</li>
 </ul>
 <pre class="r"><code># running the t-test on the 2023 dataset
-run_t_test(account_2023, &quot;BasketballPropensity&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
+run_t_test(ALGLSL_2023, &quot;BasketballPropensity&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
 <pre><code>## [1] &quot;There is no Significant Difference&quot;</code></pre>
 <pre class="r"><code># running the t-test on the 2023 dataset
-run_t_test(account_2024, &quot;BasketballPropensity&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
+run_t_test(ALGLSL_2024, &quot;BasketballPropensity&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
 <pre><code>## [1] &quot;There is no Significant Difference&quot;</code></pre>
 </div>
 <div id="two-sample-t-test-on-stm-vs-gamesattended" class="section level2">
@@ -460,64 +460,31 @@ members attend the same average or fewer of Bucks games</li>
 a higher average of games attended than non-season ticket members</li>
 </ul>
 <pre class="r"><code># running the t-test on the 2023 dataset
-run_t_test(account_2023, &quot;GamesAttended&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
+run_t_test(ALGLSL_2023, &quot;GamesAttended&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
 <pre><code>## [1] &quot;There is no Significant Difference&quot;</code></pre>
 <pre class="r"><code># running the t-test on the 2023 dataset
-run_t_test(account_2024, &quot;GamesAttended&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
+run_t_test(ALGLSL_2024, &quot;GamesAttended&quot;, &quot;STM&quot;, &quot;greater&quot;)</code></pre>
 <pre><code>## [1] &quot;There is no Significant Difference&quot;</code></pre>
 </div>
-<div id="creating-a-function-for-box-plots" class="section level2">
-<h2>Creating a Function for Box Plots</h2>
-<p>Now, we would like to create a function for plotting out the box
-plots for features that are significant when it comes to post-hoc
-testing. We would like to visualize them into box plots to see how they
-compare.</p>
-<pre class="r"><code># declaring the library
-library(ggplot2)
-
-# defining function for plotting a box plot
-plot_box_plot &lt;- function(dataset, variable_one, variable_two, title, year) {
-    
-
-    # plotting out the box plots
-    p &lt;- ggplot(dataset, aes(x = .data[[variable_one]], y = .data[[variable_two]])) +
-        geom_boxplot(fill =&quot;#00471B&quot;) +
-        labs(title = title, x = variable_one, y = variable_two) +
-        theme(
-            panel.background = element_rect(fill = &quot;#EEE1C6&quot;, color = NA),
-            plot.background  = element_rect(fill = &quot;#EEE1C6&quot;, color = NA),
-            panel.border     = element_rect(color = &quot;black&quot;, fill = NA, linewidth = 0.8),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank()
-        )
-
-    # creating the filename
-    filename &lt;- paste0(&quot;C:/GitHub/BucksHackathon25/BucksHypothesisTesting/T-TestPlots&quot;, year,
-    &quot;/&quot;,title, &quot;.png&quot;)
-
-    #saving the plot in a directory
-    ggsave(filename, plot = p, width = 6, height = 4, dpi=300, bg=&#39;white&#39;)
-}</code></pre>
-</div>
-<div id="creating-box-plots-using-our-function" class="section level2">
-<h2>Creating Box Plots Using Our Function</h2>
-<p>For the final step, we decide to create the box plots that we need
-when it comes to comparing the STM against the DistanceToArena,
-BasketballPropensity and GamesAttended.</p>
-<pre class="r"><code># converting into factor
-account_2023[[&#39;STM&#39;]] &lt;- as.factor(account_2023[[&#39;STM&#39;]])
-account_2024[[&#39;STM&#39;]] &lt;- as.factor(account_2024[[&#39;STM&#39;]])
-
-feature_list &lt;- c(&quot;DistanceToArena&quot;, &quot;BasketballPropensity&quot;, &quot;GamesAttended&quot;)
-for(feature in feature_list) {
-    title &lt;- paste0(&quot;STM vs &quot;,feature, &quot; Box Plot&quot;)
-    plot_box_plot(account_2023, &quot;STM&quot;, feature, title, &quot;2023&quot;)
-}
-
-for(feature in feature_list) {
-    title &lt;- paste0(&quot;STM vs &quot;, feature, &quot; Box Plot&quot;)
-    plot_box_plot(account_2024, &quot;STM&quot;, feature, title, &quot;2024&quot;)
-}</code></pre>
+<div id="two-sample-t-test-on-giveawaylabel-vs-basketballpropensity" class="section level2">
+<h2>Two Sample T-test on GiveawayLabel vs BasketballPropensity</h2>
+<p>Next, we would like to perform a t-test on comparing the
+GiveawayLabel against the BasketballPropensity feature. Hence, we set
+the null and alternative hypothesis as follows:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> the average BasketballPropensity
+is the same for users who attended giveaway games and those who did
+not.</li>
+<li><strong>Alternative Hypothesis:</strong> the average
+BasketballPropensity differs between users who attended giveaway games
+and those who did not.</li>
+</ul>
+<pre class="r"><code># running the t-test on the 2023 dataset
+run_t_test(ALGLSL_2023, &quot;GamesAttended&quot;, &quot;STM&quot;, &quot;two.sided&quot;)</code></pre>
+<pre><code>## [1] &quot;There is a Significant Difference&quot;</code></pre>
+<pre class="r"><code># running the t-test on the 2023 dataset
+run_t_test(ALGLSL_2024, &quot;GamesAttended&quot;, &quot;STM&quot;, &quot;two.sided&quot;)</code></pre>
+<pre><code>## [1] &quot;There is a Significant Difference&quot;</code></pre>
 </div>
 </div>
 

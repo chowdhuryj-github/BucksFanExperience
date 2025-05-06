@@ -369,13 +369,10 @@ library(ggplot2)
 library(rlang)
 library(gridExtra)
 
-# reading in the account data into data frames
-account_2023 &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2023.csv&quot;)
-account_2024 &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2024.csv&quot;)
-
-# reading in the account/seat data into data frames
-account_seat_2023 &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/ALSL_2023.csv&quot;)
-account_seat_2024 &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/ALSL_2024.csv&quot;)</code></pre>
+# reading in the data into data frames
+ALGLSL_2023 &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/ALGLSL_2023.csv&quot;)
+ALGLSL_2024 &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/ALGLSL_2024.csv&quot;)
+CustomerPlans &lt;- read.csv(&quot;C:/GitHub/BucksHackathon25/BucksDatasets/CustomerPlans_2023.csv&quot;)</code></pre>
 <div id="function-for-perfoming-chi-sqaured-test" class="section level2">
 <h2>Function for Perfoming Chi-Sqaured Test</h2>
 <p>Before we perform any chi-sqaured tests, we would like to create a
@@ -417,122 +414,56 @@ a post-hoc pairwise test. The Null and Alternative Hypothesis is stated
 as follows: - <strong>Null Hypothesis:</strong> there is no association
 between STM and FanSegment - <strong>Alternative Hypothesis:</strong>
 there is an association between STM and FanSegment</p>
-<pre class="r"><code>sort(unique(account_2023$FanSegment))</code></pre>
-<pre><code>## [1] &quot;A&quot;            &quot;B&quot;            &quot;C&quot;            &quot;D&quot;            &quot;E&quot;           
-## [6] &quot;F&quot;            &quot;G&quot;            &quot;Limited Data&quot;</code></pre>
 <pre class="r"><code># running the chi-squared test function for the 2023 dataset
-run_chi_squared_test(account_2023, &#39;FanSegment&#39;, &#39;STM&#39;)</code></pre>
-<pre><code>## Warning in chisq.test(contingency_table): Chi-squared approximation may be
-## incorrect</code></pre>
-<pre><code>## [1] &quot;Statistical Signifigance is Present&quot;</code></pre>
-<pre><code>## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect</code></pre>
-<pre><code>## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect
-## Warning in chisq.test(Dataz, correct = yates, ...): Chi-squared approximation
-## may be incorrect</code></pre>
-<pre><code>##          Comparison  p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
-## 1             A : B 1.74e-01    1.00e+00  2.17e-01    1.00e+00
-## 2             A : C 1.79e-05    5.01e-04  3.05e-06    8.54e-05
-## 3             A : D 1.60e-07    4.48e-06  1.30e-08    3.64e-07
-## 4             A : E 1.28e-06    3.58e-05  7.05e-12    1.97e-10
-## 5             A : F 1.31e-09    3.67e-08  4.65e-43    1.30e-41
-## 6             A : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
-## 7  A : Limited Data 5.50e-09    1.54e-07  9.62e-07    2.69e-05
-## 8             B : C 1.96e-03    5.49e-02  1.13e-03    3.16e-02
-## 9             B : D 6.25e-05    1.75e-03  3.12e-05    8.74e-04
-## 10            B : E 1.31e-04    3.67e-03  9.22e-07    2.58e-05
-## 11            B : F 1.67e-07    4.68e-06  5.82e-24    1.63e-22
-## 12            B : G 0.00e+00    0.00e+00 4.18e-218   1.17e-216
-## 13 B : Limited Data 2.19e-05    6.13e-04  2.65e-04    7.42e-03
-## 14            C : D 4.48e-01    1.00e+00  4.50e-01    1.00e+00
-## 15            C : E 2.13e-01    1.00e+00  1.91e-01    1.00e+00
-## 16            C : F 1.23e-03    3.44e-02  1.53e-05    4.28e-04
-## 17            C : G 0.00e+00    0.00e+00  2.01e-81    5.63e-80
-## 18 C : Limited Data 8.31e-01    1.00e+00  8.33e-01    1.00e+00
-## 19            D : E 5.08e-01    1.00e+00  4.97e-01    1.00e+00
-## 20            D : F 4.74e-03    1.33e-01  2.99e-04    8.37e-03
-## 21            D : G 0.00e+00    0.00e+00  4.65e-76    1.30e-74
-## 22 D : Limited Data 4.50e-01    1.00e+00  4.36e-01    1.00e+00
-## 23            E : F 3.20e-02    8.96e-01  1.62e-02    4.54e-01
-## 24            E : G 0.00e+00    0.00e+00  1.66e-33    4.65e-32
-## 25 E : Limited Data 2.00e-01    1.00e+00  1.58e-01    1.00e+00
-## 26            F : G 1.43e-09    4.00e-08  6.61e-09    1.85e-07
-## 27 F : Limited Data 7.31e-04    2.05e-02  4.62e-07    1.29e-05
-## 28 G : Limited Data 0.00e+00    0.00e+00 2.20e-209   6.16e-208</code></pre>
-<pre class="r"><code># running the chi-squared test function for the 2024 dataset
-run_chi_squared_test(account_2024, &#39;FanSegment&#39;, &#39;STM&#39;)</code></pre>
+run_chi_squared_test(ALGLSL_2023, &#39;FanSegment&#39;, &#39;STM&#39;)</code></pre>
 <pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
-##          Comparison  p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
-## 1             A : B 3.26e-05    9.13e-04  2.81e-05    7.87e-04
-## 2             A : C 0.00e+00    0.00e+00  3.09e-43    8.65e-42
-## 3             A : D 0.00e+00    0.00e+00  2.86e-75    8.01e-74
-## 4             A : E 0.00e+00    0.00e+00  4.20e-61    1.18e-59
-## 5             A : F 0.00e+00    0.00e+00  1.19e-37    3.33e-36
-## 6             A : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
-## 7  A : Limited Data 4.33e-01    1.00e+00  4.38e-01    1.00e+00
-## 8             B : C 0.00e+00    0.00e+00  1.43e-19    4.00e-18
-## 9             B : D 0.00e+00    0.00e+00  6.60e-40    1.85e-38
-## 10            B : E 0.00e+00    0.00e+00  2.15e-30    6.02e-29
-## 11            B : F 1.78e-15    4.98e-14  3.68e-16    1.03e-14
-## 12            B : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
-## 13 B : Limited Data 8.90e-06    2.49e-04  1.94e-06    5.43e-05
-## 14            C : D 6.92e-03    1.94e-01  7.64e-03    2.14e-01
-## 15            C : E 1.50e-02    4.20e-01  1.41e-02    3.95e-01
-## 16            C : F 2.57e-01    1.00e+00  2.56e-01    1.00e+00
-## 17            C : G 0.00e+00    0.00e+00 8.93e-279   2.50e-277
-## 18 C : Limited Data 0.00e+00    0.00e+00  1.14e-76    3.19e-75
-## 19            D : E 7.35e-01    1.00e+00  7.34e-01    1.00e+00
-## 20            D : F 2.24e-05    6.27e-04  2.75e-05    7.70e-04
-## 21            D : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
-## 22 D : Limited Data 0.00e+00    0.00e+00 2.63e-176   7.36e-175
-## 23            E : F 3.72e-04    1.04e-02  2.74e-04    7.67e-03
-## 24            E : G 0.00e+00    0.00e+00 8.16e-191   2.28e-189
-## 25 E : Limited Data 0.00e+00    0.00e+00 1.83e-104   5.12e-103
-## 26            F : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
-## 27 F : Limited Data 0.00e+00    0.00e+00  1.42e-69    3.98e-68
-## 28 G : Limited Data 0.00e+00    0.00e+00  0.00e+00    0.00e+00</code></pre>
-<p>For the 2023 dataset, we interpret the results as follows: - C vs A -
-D vs A, B - E vs A, B - F vs A, B, C and D - G vs A, B, C, D, E, F</p>
-<p>For the 2024 dataset, we interpret the results as follows: - B vs A -
-C vs A, B - D vs A, B - E vs A, B - F vs A, B, D, E - G vs A, B, C, D,
-E, F</p>
+##    Comparison  p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
+## 1       A : B 0.00e+00    0.00e+00  2.52e-33    5.29e-32
+## 2       A : C 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 3       A : D 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 4       A : E 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 5       A : F 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 6       A : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 7       B : C 0.00e+00    0.00e+00 2.23e-304   4.68e-303
+## 8       B : D 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 9       B : E 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 10      B : F 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 11      B : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 12      C : D 0.00e+00    0.00e+00  2.47e-21    5.19e-20
+## 13      C : E 0.00e+00    0.00e+00  4.21e-32    8.84e-31
+## 14      C : F 0.00e+00    0.00e+00  3.37e-18    7.08e-17
+## 15      C : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 16      D : E 9.77e-07    2.05e-05  6.10e-07    1.28e-05
+## 17      D : F 1.52e-01    1.00e+00  1.50e-01    1.00e+00
+## 18      D : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 19      E : F 2.81e-03    5.90e-02  2.75e-03    5.78e-02
+## 20      E : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 21      F : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00</code></pre>
+<pre class="r"><code># running the chi-squared test function for the 2024 dataset
+run_chi_squared_test(ALGLSL_2024, &#39;FanSegment&#39;, &#39;STM&#39;)</code></pre>
+<pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
+##    Comparison  p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
+## 1       A : B 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 2       A : C 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 3       A : D 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 4       A : E 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 5       A : F 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 6       A : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 7       B : C 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 8       B : D 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 9       B : E 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 10      B : F 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 11      B : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 12      C : D 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 13      C : E 0.00e+00    0.00e+00 1.58e-250   3.32e-249
+## 14      C : F 0.00e+00    0.00e+00  3.75e-26    7.88e-25
+## 15      C : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 16      D : E 2.39e-09    5.02e-08  2.81e-09    5.90e-08
+## 17      D : F 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 18      D : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 19      E : F 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 20      E : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00
+## 21      F : G 0.00e+00    0.00e+00  0.00e+00    0.00e+00</code></pre>
 </div>
 <div id="chi-squared-test-on-fansegment-vs-gametier" class="section level2">
 <h2>Chi-Squared Test on FanSegment vs GameTier</h2>
@@ -544,29 +475,25 @@ association between GameTier and FanSegment - <strong>Alternative
 Hypothesis:</strong> there is an association between GameTier and
 FanSegment</p>
 <pre class="r"><code># running the chi-squared test function for the 2023 dataset
-run_chi_squared_test(account_seat_2023, &#39;GameTier&#39;, &#39;FanSegment&#39;)</code></pre>
+run_chi_squared_test(ALGLSL_2023, &#39;GameTier&#39;, &#39;FanSegment&#39;)</code></pre>
 <pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
 ##   Comparison  p.Gtest p.adj.Gtest  p.Chisq p.adj.Chisq
-## 1      A : B 0.00e+00    0.00e+00 1.41e-32    8.46e-32
-## 2      A : C 0.00e+00    0.00e+00 2.77e-89    1.66e-88
-## 3      A : D 0.00e+00    0.00e+00 6.20e-56    3.72e-55
-## 4      B : C 0.00e+00    0.00e+00 1.70e-39    1.02e-38
-## 5      B : D 4.19e-12    2.51e-11 4.97e-12    2.98e-11
-## 6      C : D 0.00e+00    0.00e+00 3.96e-20    2.38e-19</code></pre>
+## 1      A : B 5.55e-16    3.33e-15 2.79e-16    1.67e-15
+## 2      A : C 0.00e+00    0.00e+00 7.53e-39    4.52e-38
+## 3      A : D 0.00e+00    0.00e+00 5.82e-24    3.49e-23
+## 4      B : C 5.62e-09    3.37e-08 6.47e-09    3.88e-08
+## 5      B : D 8.25e-01    1.00e+00 8.24e-01    1.00e+00
+## 6      C : D 0.00e+00    0.00e+00 1.69e-19    1.01e-18</code></pre>
 <pre class="r"><code># running the chi-squared test function for the 2024 dataset
-run_chi_squared_test(account_seat_2024, &#39;GameTier&#39;, &#39;FanSegment&#39;)</code></pre>
+run_chi_squared_test(ALGLSL_2024, &#39;GameTier&#39;, &#39;FanSegment&#39;)</code></pre>
 <pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
 ##   Comparison  p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
-## 1      A : B 0.00e+00    0.00e+00  8.41e-36    5.05e-35
-## 2      A : C 0.00e+00    0.00e+00  3.46e-39    2.08e-38
-## 3      A : D 0.00e+00    0.00e+00  6.77e-28    4.06e-27
-## 4      B : C 0.00e+00    0.00e+00 1.63e-138   9.78e-138
-## 5      B : D 0.00e+00    0.00e+00 2.39e-131   1.43e-130
-## 6      C : D 1.18e-06    7.08e-06  1.16e-06    6.96e-06</code></pre>
-<p>For the 2023 dataset, we interpret the results as follows: - C vs A,
-B - E vs C - F vs C, D - G vs F</p>
-<p>For the 2024 dataset, we interpret the results as follows: - B vs A -
-C vs A - D vs A - E vs A - F vs A - G vs A, B, D, E</p>
+## 1      A : B 0.00e+00    0.00e+00  4.32e-25    2.59e-24
+## 2      A : C 0.00e+00    0.00e+00  8.55e-58    5.13e-57
+## 3      A : D 0.00e+00    0.00e+00  7.62e-38    4.57e-37
+## 4      B : C 0.00e+00    0.00e+00 3.22e-189   1.93e-188
+## 5      B : D 0.00e+00    0.00e+00 1.81e-159   1.09e-158
+## 6      C : D 1.24e-10    7.44e-10  1.21e-10    7.26e-10</code></pre>
 </div>
 <div id="chi-squared-test-on-socialmediaengagement-vs-gametier" class="section level2">
 <h2>Chi-Squared Test on SocialMediaEngagement vs GameTier</h2>
@@ -578,7 +505,7 @@ there is no association between SocialMediaEngagement and GameTier -
 <strong>Alternative Hypothesis:</strong> there is an association between
 SocialMediaEngagement and GameTier</p>
 <pre class="r"><code># running the chi-squared test function for the 2023 dataset
-run_chi_squared_test(account_seat_2023, &#39;GameTier&#39;, &#39;SocialMediaEngagement&#39;)</code></pre>
+run_chi_squared_test(ALGLSL_2023, &#39;GameTier&#39;, &#39;SocialMediaEngagement&#39;)</code></pre>
 <pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
 ##   Comparison  p.Gtest p.adj.Gtest  p.Chisq p.adj.Chisq
 ## 1      A : B 6.81e-02    4.09e-01 6.79e-02    4.07e-01
@@ -588,7 +515,7 @@ run_chi_squared_test(account_seat_2023, &#39;GameTier&#39;, &#39;SocialMediaEnga
 ## 5      B : D 6.36e-01    1.00e+00 6.35e-01    1.00e+00
 ## 6      C : D 1.89e-15    1.13e-14 1.44e-15    8.64e-15</code></pre>
 <pre class="r"><code># running the chi-squared test function for the 2024 dataset
-run_chi_squared_test(account_seat_2024, &#39;GameTier&#39;, &#39;SocialMediaEngagement&#39;)</code></pre>
+run_chi_squared_test(ALGLSL_2024, &#39;GameTier&#39;, &#39;SocialMediaEngagement&#39;)</code></pre>
 <pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
 ##   Comparison  p.Gtest p.adj.Gtest  p.Chisq p.adj.Chisq
 ## 1      A : B 7.20e-01    1.00e+00 7.20e-01    1.00e+00
@@ -597,10 +524,6 @@ run_chi_squared_test(account_seat_2024, &#39;GameTier&#39;, &#39;SocialMediaEnga
 ## 4      B : C 9.10e-03    5.46e-02 9.10e-03    5.46e-02
 ## 5      B : D 1.37e-03    8.22e-03 1.36e-03    8.16e-03
 ## 6      C : D 2.71e-12    1.63e-11 2.70e-12    1.62e-11</code></pre>
-<p>For the 2023 dataset, we interpret the results as follows: - A vs D -
-B vs C - C vs D</p>
-<p>For the 2024 dataset, we interpret the results as follows: - A vs D -
-B vs D - C vs D</p>
 </div>
 <div id="chi-squared-test-on-stm-vs-gametier" class="section level2">
 <h2>Chi-Squared Test on STM vs GameTier</h2>
@@ -611,7 +534,7 @@ follows: - <strong>Null Hypothesis:</strong> there is no association
 between STM and GameTier - <strong>Alternative Hypothesis:</strong>
 there is an association between STM and GameTier</p>
 <pre class="r"><code># running the chi-squared test function for the 2023 dataset
-run_chi_squared_test(account_seat_2023, &#39;GameTier&#39;, &#39;STM&#39;)</code></pre>
+run_chi_squared_test(ALGLSL_2023, &#39;GameTier&#39;, &#39;STM&#39;)</code></pre>
 <pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
 ##   Comparison p.Gtest p.adj.Gtest p.Chisq p.adj.Chisq
 ## 1      A : B  0.0440      0.2640  0.0435      0.2610
@@ -621,7 +544,7 @@ run_chi_squared_test(account_seat_2023, &#39;GameTier&#39;, &#39;STM&#39;)</code
 ## 5      B : D  0.1520      0.9120  0.1530      0.9180
 ## 6      C : D  0.0236      0.1420  0.0239      0.1430</code></pre>
 <pre class="r"><code># running the chi-squared test function for the 2024 dataset
-run_chi_squared_test(account_seat_2024, &#39;GameTier&#39;, &#39;STM&#39;)</code></pre>
+run_chi_squared_test(ALGLSL_2024, &#39;GameTier&#39;, &#39;STM&#39;)</code></pre>
 <pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
 ##   Comparison  p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
 ## 1      A : B 3.55e-15    2.13e-14  3.46e-15    2.08e-14
@@ -630,178 +553,112 @@ run_chi_squared_test(account_seat_2024, &#39;GameTier&#39;, &#39;STM&#39;)</code
 ## 4      B : C 0.00e+00    0.00e+00 4.81e-201   2.89e-200
 ## 5      B : D 0.00e+00    0.00e+00 4.78e-266   2.87e-265
 ## 6      C : D 3.88e-05    2.33e-04  3.89e-05    2.33e-04</code></pre>
-<p>For the 2023 dataset, we interpret the results as follows: - None</p>
-<p>For the 2024 dataset, we interpret the results as follows: - A vs B -
-A vs C - A vs D - B vs C - B vs D - C vs D</p>
 </div>
-<div id="function-for-creating-a-heat-map" class="section level2">
-<h2>Function for Creating a Heat Map</h2>
-<p>Now, we would like to function that is designed to plot out a heat
-map. This will help visualize some of the statistical testing that we’ve
-done.</p>
-<pre class="r"><code># calling the library
-library(ggplot2)
-library(dplyr)
-
-# function for plotting out a heat map
-plot_heat_map &lt;- function(dataset, variable_one, variable_two, title, year, level_vector) {
-
-    dataset[[variable_one]] &lt;- as.factor(dataset[[variable_one]])
-    dataset[[variable_two]] &lt;- as.factor(dataset[[variable_two]])
-
-    dataset &lt;- dataset %&gt;% filter(.data[[variable_two]] %in% level_vector)
-    dataset[[variable_two]] &lt;- factor(dataset[[variable_two]], levels = level_vector)
-
-    plot_data &lt;- dataset %&gt;% count(.data[[variable_one]], .data[[variable_two]])
-
-    # plotting out the heat maps
-    p &lt;- ggplot(plot_data, aes(x = .data[[variable_one]], y = .data[[variable_two]], fill = n)) +
-        geom_tile(color =&quot;#00471B&quot;) +
-        scale_fill_gradient(low = &quot;#EAF1E8&quot;, high = &quot;#00471B&quot;) +
-        labs(title = title, x = variable_one, y = variable_two, fill=&#39;Count&#39;) +
-        theme(
-            panel.background = element_rect(fill = &quot;#EEE1C6&quot;, color = NA),
-            plot.background  = element_rect(fill = &quot;#EEE1C6&quot;, color = NA),
-            panel.border     = element_rect(color = &quot;black&quot;, fill = NA, linewidth = 0.8),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank()
-        )
-
-    # creating the filename
-    filename &lt;- paste0(&quot;C:/GitHub/BucksHackathon25/BucksHypothesisTesting/ChiSquaredPlots&quot;, year,
-    &quot;/&quot;,title, &quot;.png&quot;)
-
-    #saving the plot in a directory
-    ggsave(filename, plot = p, width = 6, height = 4, dpi=300, bg=&#39;white&#39;)
-}</code></pre>
+<div id="chi-squared-test-on-giveawaylabel-vs-socialmediaengagement" class="section level2">
+<h2>Chi-Squared Test on GiveawayLabel vs SocialMediaEngagement</h2>
+<p>After establishing the function, we now decide to conduct a
+chi-squared test on GiveawayLabel against the SocialMediaEngagement
+feature. We also perform a post-hoc pairwise test. The Null and
+Alternative Hypothesis is stated as follows: - <strong>Null
+Hypothesis:</strong> there is no association between GiveawayLabel and
+SocialMediaEngagement - <strong>Alternative Hypothesis:</strong> there
+is an association between GiveawayLabel and SocialMediaEngagement</p>
+<pre class="r"><code># running the chi-squared test function for the 2023 dataset
+run_chi_squared_test(ALGLSL_2023, &#39;GiveawayLabel&#39;, &#39;SocialMediaEngagement&#39;)</code></pre>
+<pre><code>## [1] &quot;No Statistical Signifigance Detected&quot;</code></pre>
+<pre class="r"><code># running the chi-squared test function for the 2024 dataset
+run_chi_squared_test(ALGLSL_2024, &#39;GiveawayLabel&#39;, &#39;SocialMediaEngagement&#39;)</code></pre>
+<pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
+##   Comparison p.Gtest p.adj.Gtest p.Chisq p.adj.Chisq
+## 1      0 : 1   0.035       0.035  0.0351      0.0351</code></pre>
 </div>
-<div id="creating-heat-maps-using-our-function" class="section level2">
-<h2>Creating Heat Maps Using Our Function</h2>
-<p>Now, we decide to create heat maps using the function we created.
-This will allow us to visualize the relationships between the
-features.</p>
-<pre class="r"><code># setting up a list of vectors for 2023
-vector_list_2023 &lt;- list(
-    c(&quot;C&quot;, &quot;A&quot;),
-    c(&quot;D&quot;, &quot;A&quot;),
-    c(&quot;D&quot;, &quot;B&quot;),
-    c(&quot;E&quot;, &quot;A&quot;),
-    c(&quot;E&quot;, &quot;B&quot;),
-    c(&quot;F&quot;, &quot;A&quot;),
-    c(&quot;F&quot;, &quot;B&quot;),
-    c(&quot;F&quot;, &quot;C&quot;),
-    c(&quot;F&quot;, &quot;D&quot;),
-    c(&quot;G&quot;, &quot;A&quot;),
-    c(&quot;G&quot;, &quot;B&quot;),
-    c(&quot;G&quot;, &quot;C&quot;),
-    c(&quot;G&quot;, &quot;D&quot;),
-    c(&quot;G&quot;, &quot;E&quot;),
-    c(&quot;G&quot;, &quot;F&quot;)
-)
-
-# setting up a list of vectors for 2024
-vector_list_2024 &lt;- list(
-  c(&quot;B&quot;, &quot;A&quot;),
-  c(&quot;C&quot;, &quot;A&quot;),
-  c(&quot;C&quot;, &quot;B&quot;),
-  c(&quot;D&quot;, &quot;A&quot;),
-  c(&quot;D&quot;, &quot;B&quot;),
-  c(&quot;E&quot;, &quot;A&quot;),
-  c(&quot;E&quot;, &quot;B&quot;),
-  c(&quot;F&quot;, &quot;A&quot;),
-  c(&quot;F&quot;, &quot;B&quot;),
-  c(&quot;F&quot;, &quot;D&quot;),
-  c(&quot;F&quot;, &quot;E&quot;),
-  c(&quot;G&quot;, &quot;A&quot;),
-  c(&quot;G&quot;, &quot;B&quot;),
-  c(&quot;G&quot;, &quot;C&quot;),
-  c(&quot;G&quot;, &quot;D&quot;),
-  c(&quot;G&quot;, &quot;E&quot;),
-  c(&quot;G&quot;, &quot;F&quot;)
-
-
-)
-
-# for looping and calling the function for 2023
-for(vec in vector_list_2023) {
-    title &lt;- paste(&quot;STM-Engangement Heat Map for&quot;, vec[1], &quot;vs&quot;, vec[2], &quot;2023&quot;)
-    plot_heat_map(account_2023, &#39;STM&#39;, &#39;FanSegment&#39;, title, 2023, vec)
-}
-
-# for looping and calling the function for 2024
-for(vec in vector_list_2024) {
-    title &lt;- paste(&quot;STM-Engangement Heat Map for&quot;, vec[1], &quot;vs&quot;, vec[2], &quot;2024&quot;)
-    plot_heat_map(account_2024, &#39;STM&#39;, &#39;FanSegment&#39;, title, 2024, vec)
+<div id="chi-squared-test-on-giveawaylabel-vs-gametier" class="section level2">
+<h2>Chi-Squared Test on GiveawayLabel vs GameTier</h2>
+<p>After establishing the function, we now decide to conduct a
+chi-squared test on GiveawayLabel against the GameTier feature. We also
+perform a post-hoc pairwise test. The Null and Alternative Hypothesis is
+stated as follows: - <strong>Null Hypothesis:</strong> there is no
+association between GiveawayLabel and GameTier - <strong>Alternative
+Hypothesis:</strong> there is an association between GiveawayLabel and
+GameTier</p>
+<pre class="r"><code># running the chi-squared test function for the 2023 dataset
+run_chi_squared_test(ALGLSL_2023, &#39;GiveawayLabel&#39;, &#39;GameTier&#39;)</code></pre>
+<pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
+##   Comparison p.Gtest p.adj.Gtest p.Chisq p.adj.Chisq
+## 1      0 : 1       0           0       0           0</code></pre>
+<pre class="r"><code># running the chi-squared test function for the 2024 dataset
+run_chi_squared_test(ALGLSL_2024, &#39;GiveawayLabel&#39;, &#39;GameTier&#39;)</code></pre>
+<pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
+##   Comparison p.Gtest p.adj.Gtest p.Chisq p.adj.Chisq
+## 1      0 : 1       0           0       0           0</code></pre>
+</div>
+<div id="chi-squared-test-on-giveawaylabel-vs-fansegment" class="section level2">
+<h2>Chi-Squared Test on GiveawayLabel vs FanSegment</h2>
+<p>After establishing the function, we now decide to conduct a
+chi-squared test on GiveawayLabel against the FanSegment feature. We
+also perform a post-hoc pairwise test. The Null and Alternative
+Hypothesis is stated as follows: - <strong>Null Hypothesis:</strong>
+there is no association between GiveawayLabel and FanSegment -
+<strong>Alternative Hypothesis:</strong> there is an association between
+GiveawayLabel and FanSegment</p>
+<pre class="r"><code># running the chi-squared test function for the 2023 dataset
+run_chi_squared_test(ALGLSL_2023, &#39;GiveawayLabel&#39;, &#39;FanSegment&#39;)</code></pre>
+<pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
+##   Comparison p.Gtest p.adj.Gtest  p.Chisq p.adj.Chisq
+## 1      0 : 1       0           0 3.29e-18    3.29e-18</code></pre>
+<pre class="r"><code># running the chi-squared test function for the 2024 dataset
+run_chi_squared_test(ALGLSL_2024, &#39;GiveawayLabel&#39;, &#39;FanSegment&#39;)</code></pre>
+<pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
+##   Comparison  p.Gtest p.adj.Gtest  p.Chisq p.adj.Chisq
+## 1      0 : 1 0.000619    0.000619 0.000647    0.000647</code></pre>
+</div>
+<div id="chi-squared-test-on-cluster-vs-stm-fansegment-socialmediaengagement-gametier" class="section level2">
+<h2>Chi-Squared Test on Cluster vs STM, FanSegment,
+SocialMediaEngagement &amp; GameTier</h2>
+<pre class="r"><code>features = c(&#39;STM&#39;, &#39;FanSegment&#39;, &#39;SocialMediaEngagement&#39;, &#39;GameTier&#39;, &#39;GiveawayLabel&#39;)
+for (feature in features) {
+    run_chi_squared_test(CustomerPlans, &#39;Cluster&#39;, feature)
 }</code></pre>
-<pre class="r"><code>vector_list_2023 &lt;- list(
-    c(&quot;C&quot;, &quot;A&quot;),
-    c(&quot;C&quot;, &quot;B&quot;),
-    c(&quot;E&quot;, &quot;C&quot;),
-    c(&quot;F&quot;, &quot;C&quot;),
-    c(&quot;F&quot;, &quot;D&quot;),
-    c(&quot;G&quot;, &quot;F&quot;)
-)
-
-vector_list_2024 &lt;- list(
-    c(&quot;B&quot;, &quot;A&quot;),
-    c(&quot;C&quot;, &quot;A&quot;),
-    c(&quot;D&quot;, &quot;A&quot;),
-    c(&quot;E&quot;, &quot;A&quot;),
-    c(&quot;F&quot;, &quot;A&quot;),
-    c(&quot;G&quot;, &quot;A&quot;),
-    c(&quot;G&quot;, &quot;B&quot;),
-    c(&quot;G&quot;, &quot;D&quot;),
-    c(&quot;G&quot;, &quot;E&quot;)
-)
-
-# for looping and calling the function for 2023
-for(vec in vector_list_2023) {
-    title &lt;- paste(&quot;GameTier-FanSegment Heat Map for&quot;, vec[1], &quot;vs&quot;, vec[2], &quot;2023&quot;)
-    plot_heat_map(account_seat_2023, &#39;GameTier&#39;, &#39;FanSegment&#39;, title, 2023, vec)
-}
-
-# for looping and calling the function for 2024
-for(vec in vector_list_2024) {
-    title &lt;- paste(&quot;GameTier-FanSegment Heat Map for&quot;, vec[1], &quot;vs&quot;, vec[2], &quot;2024&quot;)
-    plot_heat_map(account_seat_2024, &#39;GameTier&#39;, &#39;FanSegment&#39;, title, 2024, vec)
-}</code></pre>
-<pre class="r"><code>vector_list_2024 &lt;- list(
-    c(&quot;A&quot;, &quot;B&quot;),
-    c(&quot;A&quot;, &quot;C&quot;),
-    c(&quot;A&quot;, &quot;D&quot;),
-    c(&quot;B&quot;, &quot;C&quot;),
-    c(&quot;B&quot;, &quot;D&quot;),
-    c(&quot;C&quot;, &quot;D&quot;)
-)
-
-# for looping and calling the function for 2024
-for(vec in vector_list_2024) {
-    title &lt;- paste(&quot;GameTier-STM Heat Map for&quot;, vec[1], &quot;vs&quot;, vec[2], &quot;2024&quot;)
-    plot_heat_map(account_seat_2024, &#39;GameTier&#39;, &#39;STM&#39;, title, 2024, vec)
-}</code></pre>
-<pre class="r"><code>vector_list_2023 &lt;- list(
-    c(&quot;A&quot;, &quot;D&quot;),
-    c(&quot;B&quot;, &quot;C&quot;),
-    c(&quot;C&quot;, &quot;D&quot;)
-)
-
-vector_list_2024 &lt;- list(
-    c(&quot;A&quot;, &quot;D&quot;),
-    c(&quot;B&quot;, &quot;D&quot;),
-    c(&quot;C&quot;, &quot;D&quot;)
-)
-
-# for looping and calling the function for 2023
-for(vec in vector_list_2023) {
-    title &lt;- paste(&quot;GameTier-SocialMediaEngagement Heat Map for&quot;, vec[1], &quot;vs&quot;, vec[2], &quot;2023&quot;)
-    plot_heat_map(account_seat_2023, &#39;GameTier&#39;, &#39;SocialMediaEngagement&#39;, title, 2023, vec)
-}
-
-# for looping and calling the function for 2024
-for(vec in vector_list_2024) {
-    title &lt;- paste(&quot;GameTier-SocialMediaEngagement Heat Map for&quot;, vec[1], &quot;vs&quot;, vec[2], &quot;2024&quot;)
-    plot_heat_map(account_seat_2024, &#39;GameTier&#39;, &#39;SocialMediaEngagement&#39;, title, 2024, vec)
-}</code></pre>
+<pre><code>## [1] &quot;Statistical Signifigance is Present&quot;
+##   Comparison p.Gtest p.adj.Gtest  p.Chisq p.adj.Chisq
+## 1      0 : 1       0           0 2.53e-66    1.52e-65
+## 2      0 : 2       0           0 0.00e+00    0.00e+00
+## 3      0 : 3       0           0 0.00e+00    0.00e+00
+## 4      1 : 2       0           0 0.00e+00    0.00e+00
+## 5      1 : 3       0           0 0.00e+00    0.00e+00
+## 6      2 : 3       0           0 0.00e+00    0.00e+00
+## [1] &quot;Statistical Signifigance is Present&quot;
+##   Comparison p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
+## 1      0 : 1       0           0 4.09e-216   2.45e-215
+## 2      0 : 2       0           0  0.00e+00    0.00e+00
+## 3      0 : 3       0           0  0.00e+00    0.00e+00
+## 4      1 : 2       0           0  0.00e+00    0.00e+00
+## 5      1 : 3       0           0  0.00e+00    0.00e+00
+## 6      2 : 3       0           0  0.00e+00    0.00e+00
+## [1] &quot;Statistical Signifigance is Present&quot;
+##   Comparison  p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
+## 1      0 : 1 2.49e-08    1.49e-07  2.71e-08    1.63e-07
+## 2      0 : 2 0.00e+00    0.00e+00 1.48e-102   8.88e-102
+## 3      0 : 3 0.00e+00    0.00e+00 1.19e-108   7.14e-108
+## 4      1 : 2 0.00e+00    0.00e+00  6.14e-80    3.68e-79
+## 5      1 : 3 0.00e+00    0.00e+00 1.58e-143   9.48e-143
+## 6      2 : 3 0.00e+00    0.00e+00 8.53e-133   5.12e-132
+## [1] &quot;Statistical Signifigance is Present&quot;
+##   Comparison  p.Gtest p.adj.Gtest   p.Chisq p.adj.Chisq
+## 1      0 : 1 0.00e+00    0.00e+00 1.91e-117   1.15e-116
+## 2      0 : 2 0.00e+00    0.00e+00  5.85e-37    3.51e-36
+## 3      0 : 3 0.00e+00    0.00e+00 2.09e-149   1.25e-148
+## 4      1 : 2 9.57e-04    5.74e-03  1.06e-03    6.36e-03
+## 5      1 : 3 0.00e+00    0.00e+00  6.56e-26    3.94e-25
+## 6      2 : 3 6.66e-16    4.00e-15  1.22e-15    7.32e-15
+## [1] &quot;Statistical Signifigance is Present&quot;
+##   Comparison  p.Gtest p.adj.Gtest  p.Chisq p.adj.Chisq
+## 1      0 : 1 0.00e+00    0.00e+00 9.44e-31    5.66e-30
+## 2      0 : 2 5.30e-10    3.18e-09 7.00e-10    4.20e-09
+## 3      0 : 3 0.00e+00    0.00e+00 4.84e-33    2.90e-32
+## 4      1 : 2 3.57e-01    1.00e+00 3.56e-01    1.00e+00
+## 5      1 : 3 8.23e-06    4.94e-05 9.28e-06    5.57e-05
+## 6      2 : 3 5.66e-05    3.40e-04 5.50e-05    3.30e-04</code></pre>
 </div>
 </div>
 

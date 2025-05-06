@@ -20,8 +20,8 @@ library(rlang)
 library(gridExtra)
 
 # reading in the account data into data frames
-account_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2023.csv")
-account_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2024.csv")
+ALGLSL_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/ALGLSL_2023.csv")
+ALGLSL_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/ALGLSL_2024.csv")
 
 
 ```
@@ -78,10 +78,10 @@ ticket holders
 ```{r}
 
 # running the t-test on the 2023 dataset
-run_t_test(account_2023, "DistanceToArena", "STM", "less")
+run_t_test(ALGLSL_2023, "DistanceToArena", "STM", "less")
 
 # running the t-test on the 2024 dataset
-run_t_test(account_2024, "DistanceToArena", "STM", "less")
+run_t_test(ALGLSL_2024, "DistanceToArena", "STM", "less")
 
 
 ```
@@ -97,10 +97,10 @@ season ticket members
 ```{r}
 
 # running the t-test on the 2023 dataset
-run_t_test(account_2023, "BasketballPropensity", "STM", "greater")
+run_t_test(ALGLSL_2023, "BasketballPropensity", "STM", "greater")
 
 # running the t-test on the 2023 dataset
-run_t_test(account_2024, "BasketballPropensity", "STM", "greater")
+run_t_test(ALGLSL_2024, "BasketballPropensity", "STM", "greater")
 
 
 ```
@@ -116,69 +116,30 @@ members
 ```{r}
 
 # running the t-test on the 2023 dataset
-run_t_test(account_2023, "GamesAttended", "STM", "greater")
+run_t_test(ALGLSL_2023, "GamesAttended", "STM", "greater")
 
 # running the t-test on the 2023 dataset
-run_t_test(account_2024, "GamesAttended", "STM", "greater")
+run_t_test(ALGLSL_2024, "GamesAttended", "STM", "greater")
 
 
 ```
 
-## Creating a Function for Box Plots
-Now, we would like to create a function for plotting out the box plots for features that are significant when it 
-comes to post-hoc testing. We would like to visualize them into box plots to see how they compare.
+## Two Sample T-test on GiveawayLabel vs BasketballPropensity
+Next, we would like to perform a t-test on comparing the GiveawayLabel against the BasketballPropensity feature. 
+Hence, we set the null and alternative hypothesis as follows:
 
+- **Null Hypothesis:** the average BasketballPropensity is the same for users who attended giveaway games and those
+ who did not.
+- **Alternative Hypothesis:** the average BasketballPropensity differs between users who attended giveaway games 
+and those who did not.
+ 
 ```{r}
 
-# declaring the library
-library(ggplot2)
+# running the t-test on the 2023 dataset
+run_t_test(ALGLSL_2023, "GamesAttended", "STM", "two.sided")
 
-# defining function for plotting a box plot
-plot_box_plot <- function(dataset, variable_one, variable_two, title, year) {
-    
+# running the t-test on the 2023 dataset
+run_t_test(ALGLSL_2024, "GamesAttended", "STM", "two.sided")
 
-    # plotting out the box plots
-    p <- ggplot(dataset, aes(x = .data[[variable_one]], y = .data[[variable_two]])) +
-        geom_boxplot(fill ="#00471B") +
-        labs(title = title, x = variable_one, y = variable_two) +
-        theme(
-            panel.background = element_rect(fill = "#EEE1C6", color = NA),
-            plot.background  = element_rect(fill = "#EEE1C6", color = NA),
-            panel.border     = element_rect(color = "black", fill = NA, linewidth = 0.8),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank()
-        )
-
-    # creating the filename
-    filename <- paste0("C:/GitHub/BucksHackathon25/BucksHypothesisTesting/T-TestPlots", year,
-    "/",title, ".png")
-
-    #saving the plot in a directory
-    ggsave(filename, plot = p, width = 6, height = 4, dpi=300, bg='white')
-}
-
-```
-
-
-## Creating Box Plots Using Our Function
-For the final step, we decide to create the box plots that we need when it comes to comparing the STM against the 
-DistanceToArena, BasketballPropensity and GamesAttended.
-
-```{r}
-
-# converting into factor
-account_2023[['STM']] <- as.factor(account_2023[['STM']])
-account_2024[['STM']] <- as.factor(account_2024[['STM']])
-
-feature_list <- c("DistanceToArena", "BasketballPropensity", "GamesAttended")
-for(feature in feature_list) {
-    title <- paste0("STM vs ",feature, " Box Plot")
-    plot_box_plot(account_2023, "STM", feature, title, "2023")
-}
-
-for(feature in feature_list) {
-    title <- paste0("STM vs ", feature, " Box Plot")
-    plot_box_plot(account_2024, "STM", feature, title, "2024")
-}
 
 ```

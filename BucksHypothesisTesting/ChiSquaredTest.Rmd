@@ -19,13 +19,11 @@ library(ggplot2)
 library(rlang)
 library(gridExtra)
 
-# reading in the account data into data frames
-account_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2023.csv")
-account_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/AccountLevel_2024.csv")
+# reading in the data into data frames
+ALGLSL_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/ALGLSL_2023.csv")
+ALGLSL_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/ALGLSL_2024.csv")
+CustomerPlans <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/CustomerPlans_2023.csv")
 
-# reading in the account/seat data into data frames
-account_seat_2023 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/ALSL_2023.csv")
-account_seat_2024 <- read.csv("C:/GitHub/BucksHackathon25/BucksDatasets/ALSL_2024.csv")
 
 ```
 
@@ -75,28 +73,14 @@ The Null and Alternative Hypothesis is stated as follows:
 ```{r}
 
 # running the chi-squared test function for the 2023 dataset
-run_chi_squared_test(account_2023, 'FanSegment', 'STM')
+run_chi_squared_test(ALGLSL_2023, 'FanSegment', 'STM')
 
 # running the chi-squared test function for the 2024 dataset
-run_chi_squared_test(account_2024, 'FanSegment', 'STM')
+run_chi_squared_test(ALGLSL_2024, 'FanSegment', 'STM')
 
 
 ```
 
-For the 2023 dataset, we interpret the results as follows:
-- C vs A
-- D vs A, B
-- E vs A, B 
-- F vs A, B, C and D
-- G vs A, B, C, D, E, F
-
-For the 2024 dataset, we interpret the results as follows: 
-- B vs A 
-- C vs A, B 
-- D vs A, B 
-- E vs A, B 
-- F vs A, B, D, E 
-- G vs A, B, C, D, E, F
 
 ## Chi-Squared Test on FanSegment vs GameTier
 After establishing the function, we now decide to conduct a chi-squared test on FanSegment against the GameTier feature. We also perform a post-hoc pairwise 
@@ -106,26 +90,14 @@ test. The Null and Alternative Hypothesis is stated as follows:
 
 ```{r}
 # running the chi-squared test function for the 2023 dataset
-run_chi_squared_test(account_seat_2023, 'GameTier', 'FanSegment')
+run_chi_squared_test(ALGLSL_2023, 'GameTier', 'FanSegment')
 
 # running the chi-squared test function for the 2024 dataset
-run_chi_squared_test(account_seat_2024, 'GameTier', 'FanSegment')
+run_chi_squared_test(ALGLSL_2024, 'GameTier', 'FanSegment')
 
 ```
 
-For the 2023 dataset, we interpret the results as follows:
-- C vs A, B 
-- E vs C 
-- F vs C, D 
-- G vs F 
 
-For the 2024 dataset, we interpret the results as follows:
-- B vs A 
-- C vs A 
-- D vs A 
-- E vs A 
-- F vs A 
-- G vs A, B, D, E
 
 ## Chi-Squared Test on SocialMediaEngagement vs GameTier
 After establishing the function, we now decide to conduct a chi-squared test on SocialMediaEngagement against the GameTier feature. We also perform a 
@@ -135,23 +107,14 @@ post-hoc pairwise test. The Null and Alternative Hypothesis is stated as follows
 
 ```{r}
 # running the chi-squared test function for the 2023 dataset
-run_chi_squared_test(account_seat_2023, 'GameTier', 'SocialMediaEngagement')
+run_chi_squared_test(ALGLSL_2023, 'GameTier', 'SocialMediaEngagement')
 
 # running the chi-squared test function for the 2024 dataset
-run_chi_squared_test(account_seat_2024, 'GameTier', 'SocialMediaEngagement')
+run_chi_squared_test(ALGLSL_2024, 'GameTier', 'SocialMediaEngagement')
 
 
 ```
 
-For the 2023 dataset, we interpret the results as follows:
-- A vs D 
-- B vs C 
-- C vs D 
-
-For the 2024 dataset, we interpret the results as follows:
-- A vs D 
-- B vs D 
-- C vs D 
 
 ## Chi-Squared Test on STM vs GameTier 
 After establishing the function, we now decide to conduct a chi-squared test on STM against the GameTier feature. We also perform a post-hoc pairwise test. 
@@ -162,215 +125,71 @@ The Null and Alternative Hypothesis is stated as follows:
 ```{r}
 
 # running the chi-squared test function for the 2023 dataset
-run_chi_squared_test(account_seat_2023, 'GameTier', 'STM')
+run_chi_squared_test(ALGLSL_2023, 'GameTier', 'STM')
 
 # running the chi-squared test function for the 2024 dataset
-run_chi_squared_test(account_seat_2024, 'GameTier', 'STM')
+run_chi_squared_test(ALGLSL_2024, 'GameTier', 'STM')
 
 
 ```
 
-For the 2023 dataset, we interpret the results as follows:
-- None 
-
-For the 2024 dataset, we interpret the results as follows:
-- A vs B 
-- A vs C 
-- A vs D 
-- B vs C 
-- B vs D 
-- C vs D 
-
-
-## Function for Creating a Heat Map
-Now, we would like to function that is designed to plot out a heat map. This will help visualize some of the 
-statistical testing that we've done.
-
+## Chi-Squared Test on GiveawayLabel vs SocialMediaEngagement
+After establishing the function, we now decide to conduct a chi-squared test on GiveawayLabel against the 
+SocialMediaEngagement feature. We also perform a post-hoc pairwise test. 
+The Null and Alternative Hypothesis is stated as follows:
+- **Null Hypothesis:** there is no association between GiveawayLabel and SocialMediaEngagement
+- **Alternative Hypothesis:** there is an association between GiveawayLabel and SocialMediaEngagement
 ```{r}
 
-# calling the library
-library(ggplot2)
-library(dplyr)
+# running the chi-squared test function for the 2023 dataset
+run_chi_squared_test(ALGLSL_2023, 'GiveawayLabel', 'SocialMediaEngagement')
 
-# function for plotting out a heat map
-plot_heat_map <- function(dataset, variable_one, variable_two, title, year, level_vector) {
-
-    dataset[[variable_one]] <- as.factor(dataset[[variable_one]])
-    dataset[[variable_two]] <- as.factor(dataset[[variable_two]])
-
-    dataset <- dataset %>% filter(.data[[variable_two]] %in% level_vector)
-    dataset[[variable_two]] <- factor(dataset[[variable_two]], levels = level_vector)
-
-    plot_data <- dataset %>% count(.data[[variable_one]], .data[[variable_two]])
-
-    # plotting out the heat maps
-    p <- ggplot(plot_data, aes(x = .data[[variable_one]], y = .data[[variable_two]], fill = n)) +
-        geom_tile(color ="#00471B") +
-        scale_fill_gradient(low = "#EAF1E8", high = "#00471B") +
-        labs(title = title, x = variable_one, y = variable_two, fill='Count') +
-        theme(
-            panel.background = element_rect(fill = "#EEE1C6", color = NA),
-            plot.background  = element_rect(fill = "#EEE1C6", color = NA),
-            panel.border     = element_rect(color = "black", fill = NA, linewidth = 0.8),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank()
-        )
-
-    # creating the filename
-    filename <- paste0("C:/GitHub/BucksHackathon25/BucksHypothesisTesting/ChiSquaredPlots", year,
-    "/",title, ".png")
-
-    #saving the plot in a directory
-    ggsave(filename, plot = p, width = 6, height = 4, dpi=300, bg='white')
-}
+# running the chi-squared test function for the 2024 dataset
+run_chi_squared_test(ALGLSL_2024, 'GiveawayLabel', 'SocialMediaEngagement')
 
 
 ```
 
-## Creating Heat Maps Using Our Function
-Now, we decide to create heat maps using the function we created. This will allow us to visualize the relationships between the features.
 
+## Chi-Squared Test on GiveawayLabel vs GameTier
+After establishing the function, we now decide to conduct a chi-squared test on GiveawayLabel against the 
+GameTier feature. We also perform a post-hoc pairwise test. 
+The Null and Alternative Hypothesis is stated as follows:
+- **Null Hypothesis:** there is no association between GiveawayLabel and GameTier
+- **Alternative Hypothesis:** there is an association between GiveawayLabel and GameTier
 ```{r}
 
-# setting up a list of vectors for 2023
-vector_list_2023 <- list(
-    c("C", "A"),
-    c("D", "A"),
-    c("D", "B"),
-    c("E", "A"),
-    c("E", "B"),
-    c("F", "A"),
-    c("F", "B"),
-    c("F", "C"),
-    c("F", "D"),
-    c("G", "A"),
-    c("G", "B"),
-    c("G", "C"),
-    c("G", "D"),
-    c("G", "E"),
-    c("G", "F")
-)
+# running the chi-squared test function for the 2023 dataset
+run_chi_squared_test(ALGLSL_2023, 'GiveawayLabel', 'GameTier')
 
-# setting up a list of vectors for 2024
-vector_list_2024 <- list(
-  c("B", "A"),
-  c("C", "A"),
-  c("C", "B"),
-  c("D", "A"),
-  c("D", "B"),
-  c("E", "A"),
-  c("E", "B"),
-  c("F", "A"),
-  c("F", "B"),
-  c("F", "D"),
-  c("F", "E"),
-  c("G", "A"),
-  c("G", "B"),
-  c("G", "C"),
-  c("G", "D"),
-  c("G", "E"),
-  c("G", "F")
-
-
-)
-
-# for looping and calling the function for 2023
-for(vec in vector_list_2023) {
-    title <- paste("STM-Engangement Heat Map for", vec[1], "vs", vec[2], "2023")
-    plot_heat_map(account_2023, 'STM', 'FanSegment', title, 2023, vec)
-}
-
-# for looping and calling the function for 2024
-for(vec in vector_list_2024) {
-    title <- paste("STM-Engangement Heat Map for", vec[1], "vs", vec[2], "2024")
-    plot_heat_map(account_2024, 'STM', 'FanSegment', title, 2024, vec)
-}
+# running the chi-squared test function for the 2024 dataset
+run_chi_squared_test(ALGLSL_2024, 'GiveawayLabel', 'GameTier')
 
 
 ```
 
+## Chi-Squared Test on GiveawayLabel vs FanSegment
+After establishing the function, we now decide to conduct a chi-squared test on GiveawayLabel against the 
+FanSegment feature. We also perform a post-hoc pairwise test. 
+The Null and Alternative Hypothesis is stated as follows:
+- **Null Hypothesis:** there is no association between GiveawayLabel and FanSegment
+- **Alternative Hypothesis:** there is an association between GiveawayLabel and FanSegment
 ```{r}
 
-vector_list_2023 <- list(
-    c("C", "A"),
-    c("C", "B"),
-    c("E", "C"),
-    c("F", "C"),
-    c("F", "D"),
-    c("G", "F")
-)
+# running the chi-squared test function for the 2023 dataset
+run_chi_squared_test(ALGLSL_2023, 'GiveawayLabel', 'FanSegment')
 
-vector_list_2024 <- list(
-    c("B", "A"),
-    c("C", "A"),
-    c("D", "A"),
-    c("E", "A"),
-    c("F", "A"),
-    c("G", "A"),
-    c("G", "B"),
-    c("G", "D"),
-    c("G", "E")
-)
-
-# for looping and calling the function for 2023
-for(vec in vector_list_2023) {
-    title <- paste("GameTier-FanSegment Heat Map for", vec[1], "vs", vec[2], "2023")
-    plot_heat_map(account_seat_2023, 'GameTier', 'FanSegment', title, 2023, vec)
-}
-
-# for looping and calling the function for 2024
-for(vec in vector_list_2024) {
-    title <- paste("GameTier-FanSegment Heat Map for", vec[1], "vs", vec[2], "2024")
-    plot_heat_map(account_seat_2024, 'GameTier', 'FanSegment', title, 2024, vec)
-}
-
-```
-
-```{r}
-
-vector_list_2024 <- list(
-    c("A", "B"),
-    c("A", "C"),
-    c("A", "D"),
-    c("B", "C"),
-    c("B", "D"),
-    c("C", "D")
-)
-
-# for looping and calling the function for 2024
-for(vec in vector_list_2024) {
-    title <- paste("GameTier-STM Heat Map for", vec[1], "vs", vec[2], "2024")
-    plot_heat_map(account_seat_2024, 'GameTier', 'STM', title, 2024, vec)
-}
+# running the chi-squared test function for the 2024 dataset
+run_chi_squared_test(ALGLSL_2024, 'GiveawayLabel', 'FanSegment')
 
 
 ```
 
+## Chi-Squared Test on Cluster vs STM, FanSegment, SocialMediaEngagement & GameTier
 ```{r}
 
-vector_list_2023 <- list(
-    c("A", "D"),
-    c("B", "C"),
-    c("C", "D")
-)
-
-vector_list_2024 <- list(
-    c("A", "D"),
-    c("B", "D"),
-    c("C", "D")
-)
-
-# for looping and calling the function for 2023
-for(vec in vector_list_2023) {
-    title <- paste("GameTier-SocialMediaEngagement Heat Map for", vec[1], "vs", vec[2], "2023")
-    plot_heat_map(account_seat_2023, 'GameTier', 'SocialMediaEngagement', title, 2023, vec)
+features = c('STM', 'FanSegment', 'SocialMediaEngagement', 'GameTier', 'GiveawayLabel')
+for (feature in features) {
+    run_chi_squared_test(CustomerPlans, 'Cluster', feature)
 }
-
-# for looping and calling the function for 2024
-for(vec in vector_list_2024) {
-    title <- paste("GameTier-SocialMediaEngagement Heat Map for", vec[1], "vs", vec[2], "2024")
-    plot_heat_map(account_seat_2024, 'GameTier', 'SocialMediaEngagement', title, 2024, vec)
-}
-
-
 ```
