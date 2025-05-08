@@ -245,6 +245,10 @@ run_kruskal_wallis(ALGLSL_2024, 'GamesAttended', 'FanSegment')
 ## Kruskal Wallis Test on Cluster and BasketballPropensity, AvgSpend, GamesAttended, DistanceToArena
 
 ```{r}
+run_kruskal_wallis(CustomerPlans, 'Cluster', 'BasketballPropensity')
+```
+
+```{r}
 
 features = c('BasketballPropensity', 'AvgSpend', 'GamesAttended', 'DistanceToArena')
 for (feature in features) {
