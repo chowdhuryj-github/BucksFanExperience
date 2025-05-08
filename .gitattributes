@@ -1,5 +1,1 @@
 *.Rmd linguist-language=R
-*.ipynb linguist-vendored
-*.html linguist-vendored
-*.json linguist-vendored
-*.png linguist-vendored
